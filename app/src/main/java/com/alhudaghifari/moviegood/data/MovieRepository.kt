@@ -6,6 +6,7 @@ import com.alhudaghifari.moviegood.api.MovieService
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
+import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +20,7 @@ class MovieRepository @Inject constructor(
     override fun getNowPlaying() : LiveData<Resource<MovieResponse>> {
         val data = MutableLiveData<Resource<MovieResponse>>()
         data.postValue(Resource.loading(null))
+        EspressoIdlingResource.increment()
         service.getNowPlaying().enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
@@ -26,10 +28,12 @@ class MovieRepository @Inject constructor(
                 } else {
                     data.postValue(Resource.error(response.message() ?: "Error happen",null))
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 data.postValue(Resource.error(t.message.toString(),null))
+                EspressoIdlingResource.decrement()
             }
 
         })
@@ -39,6 +43,7 @@ class MovieRepository @Inject constructor(
     override fun getPopularMovies(currentIdMovie: Int):  LiveData<Resource<List<MovieItem>>> {
         val dataLive = MutableLiveData<Resource<List<MovieItem>>>()
         dataLive.postValue(Resource.loading(null))
+        EspressoIdlingResource.increment()
         service.getPopularMovies().enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
@@ -62,10 +67,12 @@ class MovieRepository @Inject constructor(
                 } else {
                     dataLive.postValue(Resource.error(response.message() ?: "Error happen",null))
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 dataLive.postValue(Resource.error(t.message.toString(),null))
+                EspressoIdlingResource.decrement()
             }
 
         })
@@ -75,6 +82,7 @@ class MovieRepository @Inject constructor(
     override fun getDetailMovie(idMovie: String): LiveData<Resource<MovieDetailResponse>> {
         val data = MutableLiveData<Resource<MovieDetailResponse>>()
         data.postValue(Resource.loading(null))
+        EspressoIdlingResource.increment()
         service.getDetailMovie(idMovie).enqueue(object : Callback<MovieDetailResponse> {
             override fun onResponse(call: Call<MovieDetailResponse>, response: Response<MovieDetailResponse>) {
                 if (response.isSuccessful) {
@@ -82,10 +90,12 @@ class MovieRepository @Inject constructor(
                 } else {
                     data.postValue(Resource.error(response.message() ?: "Error happen",null))
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
                 data.postValue(Resource.error(t.message.toString(),null))
+                EspressoIdlingResource.decrement()
             }
 
         })
