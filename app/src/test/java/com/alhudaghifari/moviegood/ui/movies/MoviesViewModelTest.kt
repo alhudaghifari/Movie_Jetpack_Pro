@@ -29,10 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @RunWith(MockitoJUnitRunner::class)
 class MoviesViewModelTest {
 
-    private val server: MockWebServer = MockWebServer()
-    private val MOCK_WEBSERVER_PORT = 8000
-
-    private lateinit var service: MovieService
     private lateinit var viewModel: MoviesViewModel
     private val contentMovie = MockResponseFileReader("movie_asset.json").content
     private lateinit var dummyMovie: MovieResponse
@@ -50,35 +46,7 @@ class MoviesViewModelTest {
     fun setUp() {
         val gson = Gson()
         dummyMovie = gson.fromJson(contentMovie, MovieResponse::class.java)
-
-        server.start(MOCK_WEBSERVER_PORT)
-        service = Retrofit.Builder()
-            .baseUrl(server.url("/"))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .build()
-            .create(MovieService::class.java)
         viewModel = MoviesViewModel(repository)
-    }
-
-    @After
-    fun shutdown() {
-        server.shutdown()
-    }
-
-    @Test
-    fun `Tes response now playing movie using Mock Web Server`() {
-        val successResponse = MockResponse().setBody(contentMovie)
-        server.enqueue(successResponse)
-
-        val response = service.getNowPlaying().execute()
-        val responseBody = response.body()
-
-        server.takeRequest()
-
-        assertNotNull(responseBody)
-        assertEquals(responseBody, dummyMovie)
-        assertEquals(dummyMovie.results?.size ?: -1, responseBody?.results?.size ?: 0)
     }
 
     @Test

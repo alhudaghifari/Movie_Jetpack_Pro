@@ -13,7 +13,9 @@ import retrofit2.Response
 import javax.inject.Inject
 import kotlin.random.Random
 
-class MovieRepository @Inject constructor(private val service: MovieService) : MovieDataSource {
+class MovieRepository @Inject constructor(
+    private val service: MovieService
+    ) : MovieDataSource {
     override fun getNowPlaying() : LiveData<Resource<MovieResponse>> {
         val data = MutableLiveData<Resource<MovieResponse>>()
         data.postValue(Resource.loading(null))

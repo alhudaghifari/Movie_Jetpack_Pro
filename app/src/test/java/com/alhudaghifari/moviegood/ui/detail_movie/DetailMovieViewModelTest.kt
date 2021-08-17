@@ -32,10 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @RunWith(MockitoJUnitRunner::class)
 class DetailMovieViewModelTest {
 
-    private val server: MockWebServer = MockWebServer()
-    private val MOCK_WEBSERVER_PORT = 8000
-
-    private lateinit var service: MovieService
     private lateinit var viewModel: DetailMovieViewModel
     private val contentRecommendationMovie = MockResponseFileReader("movie_asset.json").content
     private val contentDetailMovie = MockResponseFileReader("movie_detail_asset.json").content
@@ -64,50 +60,7 @@ class DetailMovieViewModelTest {
         dummyIdMovie = dummyMovie.results?.get(0)?.id ?: 436969
         dummyDetailMovie = gson.fromJson(contentDetailMovie, MovieDetailResponse::class.java)
 
-        server.start(MOCK_WEBSERVER_PORT)
-        service = Retrofit.Builder()
-            .baseUrl(server.url("/"))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .build()
-            .create(MovieService::class.java)
         viewModel = DetailMovieViewModel(repository)
-    }
-
-    @After
-    fun shutdown() {
-        server.shutdown()
-    }
-
-    @Test
-    fun `Tes response recommendation movie using Mock Web Server`() {
-        val successResponse = MockResponse().setBody(contentRecommendationMovie)
-        server.enqueue(successResponse)
-
-        val response = service.getPopularMovies().execute()
-        val responseBody = response.body()
-
-        server.takeRequest()
-
-        assertNotNull(responseBody)
-        assertEquals(responseBody, dummyMovie)
-        assertEquals(dummyMovie.results?.size ?: -1, responseBody?.results?.size ?: 0,)
-    }
-
-    @Test
-    fun `Tes response detail movie using Mock Web Server`() {
-        val successResponse = MockResponse().setBody(contentDetailMovie)
-        server.enqueue(successResponse)
-        val dummyId = dummyDetailMovie.id ?: 459151
-
-        val response = service.getDetailMovie(dummyId.toString()).execute()
-        val responseBody = response.body()
-
-        server.takeRequest()
-
-        assertNotNull(responseBody)
-        assertEquals(responseBody, dummyDetailMovie)
-        assertEquals(dummyDetailMovie.genres?.size, responseBody?.genres?.size ?: 0)
     }
 
     @Test
