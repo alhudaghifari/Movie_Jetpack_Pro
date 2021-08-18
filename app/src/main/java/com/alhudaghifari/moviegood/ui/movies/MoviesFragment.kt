@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.databinding.FragmentMoviesBinding
+import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +19,7 @@ class MoviesFragment : Fragment() {
 
     private lateinit var fragmentAcademyBinding: FragmentMoviesBinding
     private val viewModel: MoviesViewModel by viewModels()
+    private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentAcademyBinding = FragmentMoviesBinding.inflate(layoutInflater, container, false)
@@ -27,33 +29,41 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            moviesAdapter = MoviesAdapter()
+            with(fragmentAcademyBinding.rvData) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = moviesAdapter
+            }
             observeData()
         }
     }
 
     private fun observeData() {
+        EspressoIdlingResource.increment()
+        Log.d("MoviesFragment", "observer data ini ")
         viewModel.getNowPlaying().observe(viewLifecycleOwner, {
             if (it != null) {
                 when(it.status) {
                     Status.LOADING -> {
                         showLoading()
+                        Log.d("MoviesFragment", "observer data ini show loading ")
                     }
                     Status.SUCCESS -> {
+                        Log.d("MoviesFragment", "observer data ini success ")
                         hideLoading()
                         it.data?.let {
                             showDataList()
-                            val moviesAdapter = MoviesAdapter()
                             moviesAdapter.setMovies(it.results)
-                            with(fragmentAcademyBinding.rvData) {
-                                layoutManager = LinearLayoutManager(context)
-                                setHasFixedSize(true)
-                                adapter = moviesAdapter
-                            }
+                            EspressoIdlingResource.decrement()
                         }
+                        Log.d("MoviesFragment", "observer data ini success beres ")
                     }
                     Status.ERROR -> {
+                        Log.d("MoviesFragment", "observer data ini error ")
                         hideLoading()
                         showNoData()
+                        EspressoIdlingResource.decrement()
                     }
                 }
             }
@@ -62,10 +72,12 @@ class MoviesFragment : Fragment() {
 
     private fun showLoading() {
         fragmentAcademyBinding.progressBar.visibility = View.VISIBLE
+        fragmentAcademyBinding.rvData.visibility = View.GONE
     }
 
     private fun hideLoading() {
         fragmentAcademyBinding.progressBar.visibility = View.GONE
+        fragmentAcademyBinding.rvData.visibility = View.VISIBLE
     }
 
     fun showNoData() {

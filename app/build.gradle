@@ -83,7 +83,7 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 
     // idling resource
-    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
 
     // dagger and hilt
     implementation "com.google.dagger:hilt-android:2.37"

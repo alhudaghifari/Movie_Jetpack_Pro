@@ -14,6 +14,7 @@ import com.alhudaghifari.moviegood.data.local.MoviesData
 import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailTvBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
+import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -68,6 +69,7 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
     }
 
     private fun observeTvData(id: String) {
+        EspressoIdlingResource.increment()
         viewModel.getDetailTv(id).observe(this, {
             it?.let {
                 var category = "-"
@@ -89,14 +91,19 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
                         it.data?.tagline.let { tagline ->
                             binding.tvTagline.text = tagline ?: "-"
                         }
+                        EspressoIdlingResource.decrement()
                     }
-                    Status.ERROR -> hideDetail()
+                    Status.ERROR -> {
+                        EspressoIdlingResource.decrement()
+                        hideDetail()
+                    }
                 }
             }
         })
     }
 
     private fun observeRecomData(id: Int) {
+        EspressoIdlingResource.increment()
         viewModel.getRecommendationTv(id).observe(this, {
             it.let {
                 when (it.status) {
@@ -105,10 +112,12 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
                         showRecAndHideLoading()
                         hideNoDataRecommendationText()
                         tvAdapter.setRecommendationData(it.data)
+                        EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
                         showRecAndHideLoading()
                         showNoDataRecommendationText()
+                        EspressoIdlingResource.decrement()
                     }
                 }
             }

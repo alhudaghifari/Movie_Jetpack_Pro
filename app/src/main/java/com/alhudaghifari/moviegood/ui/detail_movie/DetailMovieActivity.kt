@@ -14,6 +14,7 @@ import com.alhudaghifari.moviegood.data.local.MoviesData
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailMovieBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
+import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.utils.Resource
 import com.alhudaghifari.moviegood.utils.Status
 import com.bumptech.glide.Glide
@@ -69,6 +70,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
     }
 
     private fun observeMovieData(id: String) {
+        EspressoIdlingResource.increment()
         viewModel.getDetailMovie(id).observe(this, {
             if (it != null) {
                 var category = "-"
@@ -90,8 +92,12 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
                         it.data?.tagline.let { tagline ->
                             binding.tvTagline.text = tagline ?: "-"
                         }
+                        EspressoIdlingResource.decrement()
                     }
-                    Status.ERROR -> hideDetail()
+                    Status.ERROR -> {
+                        hideDetail()
+                        EspressoIdlingResource.decrement()
+                    }
                 }
 
             }
@@ -99,6 +105,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
     }
 
     private fun observeRecommendationData(id: Int) {
+        EspressoIdlingResource.increment()
         viewModel.getRecommendationMovie(id).observe(this, {
             it.let {
                 when (it.status) {
@@ -107,10 +114,12 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
                         showRecAndHideLoading()
                         hideNoDataRecommendationText()
                         movieAdapter.setRecommendationData(it.data)
+                        EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
                         showRecAndHideLoading()
                         showNoDataRecommendationText()
+                        EspressoIdlingResource.decrement()
                     }
                 }
             }

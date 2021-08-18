@@ -1,7 +1,7 @@
 package com.alhudaghifari.moviegood.utils
 
-import android.support.test.espresso.IdlingResource
-import android.support.test.espresso.idling.CountingIdlingResource
+import androidx.test.espresso.IdlingResource
+import androidx.test.espresso.idling.CountingIdlingResource
 
 object EspressoIdlingResource {
     private const val RESOURCE = "GLOBAL"
@@ -15,5 +15,5 @@ object EspressoIdlingResource {
         espressoTestIdlingResource.decrement()
     }
 
-    fun getEspressoIdlingResourceForMainActivity(): IdlingResource = espressoTestIdlingResource
+    fun getEspressoIdlingResource(): IdlingResource = espressoTestIdlingResource
 }
