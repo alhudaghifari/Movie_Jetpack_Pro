@@ -64,7 +64,7 @@ class DetailMovieViewModelTest {
     }
 
     @Test
-    fun `Tes getRecommendationMovie view model and repository`() {
+    fun `Test getRecommendationMovie view model and repository`() {
         val movie = MutableLiveData<Resource<List<MovieItem>>>()
         val res = Resource.success(dummyMovieItem)
         movie.value = res
@@ -81,7 +81,7 @@ class DetailMovieViewModelTest {
     }
 
     @Test
-    fun `Tes getDetailMovie view model and repository`() {
+    fun `Test getDetailMovie view model and repository`() {
         val movie = MutableLiveData<Resource<MovieDetailResponse>>()
         val res = Resource.success(dummyDetailMovie)
         movie.value = res

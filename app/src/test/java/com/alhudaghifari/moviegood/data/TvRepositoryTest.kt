@@ -7,6 +7,7 @@ import com.alhudaghifari.moviegood.data.remote.*
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.utils.Resource
 import com.google.gson.Gson
+import com.nhaarman.mockitokotlin2.verify
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -67,7 +68,7 @@ class TvRepositoryTest {
     }
 
     @Test
-    fun `Tes remote source API recommendation TV using Mock Web Server`() {
+    fun `Test remote source API recommendation TV using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentRecommendationTv)
         server.enqueue(successResponse)
 
@@ -82,7 +83,7 @@ class TvRepositoryTest {
     }
 
     @Test
-    fun `Tes remote source API detail TV using Mock Web Server`() {
+    fun `Test remote source API detail TV using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentDetailTv)
         server.enqueue(successResponse)
         val dummyId = dummyDetailTv.id ?: 459151
@@ -98,7 +99,7 @@ class TvRepositoryTest {
     }
 
     @Test
-    fun `Tes remote source API On the Air TV using Mock Web Server`() {
+    fun `Test remote source API On the Air TV using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentRecommendationTv)
         server.enqueue(successResponse)
 
@@ -112,7 +113,6 @@ class TvRepositoryTest {
         assertEquals(dummyTv.tvItems?.size ?: -1, responseBody?.tvItems?.size ?: 0)
     }
 
-
     @Test
     fun getOnTheAir() {
         val tv = MutableLiveData<Resource<TvResponse>>()
@@ -121,6 +121,7 @@ class TvRepositoryTest {
 
         Mockito.`when`(repository.getOnTheAir()).thenReturn(tv)
         val data = LiveDataTestUtil.getValue(repository.getOnTheAir())
+        verify(repository).getOnTheAir()
 
         assertNotNull(data)
         assertEquals(tv.value?.data?.tvItems?.size, data.data?.tvItems?.size)
@@ -134,6 +135,7 @@ class TvRepositoryTest {
 
         Mockito.`when`(repository.getPopularTv(dummyIdTv)).thenReturn(tv)
         val data = LiveDataTestUtil.getValue(repository.getPopularTv(dummyIdTv))
+        verify(repository).getPopularTv(dummyIdTv)
 
         assertNotNull(data)
         assertEquals(tv.value?.data?.size, data.data?.size)
@@ -147,6 +149,7 @@ class TvRepositoryTest {
 
         Mockito.`when`(repository.getDetailTv(dummyIdTv.toString())).thenReturn(tv)
         val data = LiveDataTestUtil.getValue(repository.getDetailTv(dummyIdTv.toString()))
+        verify(repository).getDetailTv(dummyIdTv.toString())
 
         assertNotNull(data)
         assertEquals(tv.value?.data?.genres?.size, data.data?.genres?.size)

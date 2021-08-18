@@ -27,10 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(MockitoJUnitRunner::class)
 class TvShowsViewModelTest {
-    private val server: MockWebServer = MockWebServer()
-    private val MOCK_WEBSERVER_PORT = 8000
 
-    private lateinit var service: TvService
     private lateinit var viewModel: TvShowsViewModel
     private val contentMovie = MockResponseFileReader("tv_asset.json").content
     private lateinit var dummyTv: TvResponse
@@ -48,44 +45,16 @@ class TvShowsViewModelTest {
     fun setUp() {
         val gson = Gson()
         dummyTv = gson.fromJson(contentMovie, TvResponse::class.java)
-
-        server.start(MOCK_WEBSERVER_PORT)
-        service = Retrofit.Builder()
-            .baseUrl(server.url("/"))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .build()
-            .create(TvService::class.java)
         viewModel = TvShowsViewModel(repository)
     }
 
-    @After
-    fun shutdown() {
-        server.shutdown()
-    }
-
     @Test
-    fun `Tes response get tv shows using Mock Web Server`() {
-        val successResponse = MockResponse().setBody(contentMovie)
-        server.enqueue(successResponse)
-
-        val response = service.getOnTheAir().execute()
-        val responseBody = response.body()
-
-        server.takeRequest()
-
-        assertNotNull(responseBody)
-        assertEquals(responseBody, dummyTv)
-        assertEquals(dummyTv.tvItems?.size ?: -1, responseBody?.tvItems?.size ?: 0)
-    }
-
-    @Test
-    fun `Tes get tv shows view model and repository`() {
-        val movie = MutableLiveData<Resource<TvResponse>>()
+    fun `Test get tv shows view model and repository`() {
+        val tv = MutableLiveData<Resource<TvResponse>>()
         val res = Resource.success(dummyTv)
-        movie.value = res
+        tv.value = res
 
-        Mockito.`when`(repository.getOnTheAir()).thenReturn(movie)
+        Mockito.`when`(repository.getOnTheAir()).thenReturn(tv)
         val movieData = viewModel.getTvShows().value
         Mockito.verify(repository).getOnTheAir()
 

@@ -50,7 +50,7 @@ class MoviesViewModelTest {
     }
 
     @Test
-    fun `Tes getNowPlaying view model and repository`() {
+    fun `Test getNowPlaying view model and repository`() {
         val movie = MutableLiveData<Resource<MovieResponse>>()
         val res = Resource.success(dummyMovie)
         movie.value = res

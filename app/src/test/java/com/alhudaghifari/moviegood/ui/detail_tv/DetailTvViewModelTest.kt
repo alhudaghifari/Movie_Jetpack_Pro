@@ -31,10 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @RunWith(MockitoJUnitRunner::class)
 class DetailTvViewModelTest {
 
-    private val server: MockWebServer = MockWebServer()
-    private val MOCK_WEBSERVER_PORT = 8000
-
-    private lateinit var service: TvService
     private lateinit var viewModel: DetailTvViewModel
     private val contentRecommendationTv = MockResponseFileReader("tv_asset.json").content
     private val contentDetailTv = MockResponseFileReader("tv_detail_asset.json").content
@@ -63,54 +59,11 @@ class DetailTvViewModelTest {
         dummyIdTv = dummyTv.tvItems?.get(0)?.id ?: 95281
         dummyDetailTv = gson.fromJson(contentDetailTv, TvDetailResponse::class.java)
 
-        server.start(MOCK_WEBSERVER_PORT)
-        service = Retrofit.Builder()
-            .baseUrl(server.url("/"))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .build()
-            .create(TvService::class.java)
         viewModel = DetailTvViewModel(repository)
     }
 
-    @After
-    fun shutdown() {
-        server.shutdown()
-    }
-
     @Test
-    fun `Tes response recommendation tv using Mock Web Server`() {
-        val successResponse = MockResponse().setBody(contentRecommendationTv)
-        server.enqueue(successResponse)
-
-        val response = service.getPopular().execute()
-        val responseBody = response.body()
-
-        server.takeRequest()
-
-        assertNotNull(responseBody)
-        assertEquals(responseBody, dummyTv)
-        assertEquals(dummyTv.tvItems?.size ?: -1, responseBody?.tvItems?.size ?: 0,)
-    }
-
-    @Test
-    fun `Tes response detail tv using Mock Web Server`() {
-        val successResponse = MockResponse().setBody(contentDetailTv)
-        server.enqueue(successResponse)
-        val dummyId = dummyDetailTv.id ?: 459151
-
-        val response = service.getDetailTv(dummyId.toString()).execute()
-        val responseBody = response.body()
-
-        server.takeRequest()
-
-        assertNotNull(responseBody)
-        assertEquals(responseBody, dummyDetailTv)
-        assertEquals(dummyDetailTv.genres?.size, responseBody?.genres?.size ?: 0)
-    }
-
-    @Test
-    fun `Tes getRecommendationMovie view model and repository`() {
+    fun `Tes getPopularTv view model and repository`() {
         val movie = MutableLiveData<Resource<List<TvItem>>>()
         val res = Resource.success(dummyTvItem)
         movie.value = res
@@ -127,7 +80,7 @@ class DetailTvViewModelTest {
     }
 
     @Test
-    fun `Tes getDetailMovie view model and repository`() {
+    fun `Tes getDetailTv view model and repository`() {
         val movie = MutableLiveData<Resource<TvDetailResponse>>()
         val res = Resource.success(dummyDetailTv)
         movie.value = res
@@ -135,6 +88,7 @@ class DetailTvViewModelTest {
         Mockito.`when`(repository.getDetailTv(dummyIdTv.toString())).thenReturn(movie)
         val movieData = viewModel.getDetailTv(dummyIdTv.toString()).value
         verify(repository).getDetailTv(dummyIdTv.toString())
+        verify(repository, Mockito.never()).getOnTheAir()
 
         viewModel.getDetailTv(dummyIdTv.toString()).observeForever(observerDetailTv)
         verify(observerDetailTv).onChanged(res)

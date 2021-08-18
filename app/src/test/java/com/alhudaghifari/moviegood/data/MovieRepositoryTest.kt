@@ -67,7 +67,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `Tes remote source API recommendation movie using Mock Web Server`() {
+    fun `Test remote source API recommendation movie using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentRecommendationMovie)
         server.enqueue(successResponse)
 
@@ -82,7 +82,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `Tes remote source API detail movie using Mock Web Server`() {
+    fun `Test remote source API detail movie using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentDetailMovie)
         server.enqueue(successResponse)
         val dummyId = dummyDetailMovie.id ?: 459151
@@ -98,7 +98,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `Tes remote source API now playing movie using Mock Web Server`() {
+    fun `Test remote source API now playing movie using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentRecommendationMovie)
         server.enqueue(successResponse)
 
@@ -121,6 +121,7 @@ class MovieRepositoryTest {
 
         `when`(repository.getNowPlaying()).thenReturn(movie)
         val data = LiveDataTestUtil.getValue(repository.getNowPlaying())
+        verify(repository).getNowPlaying()
 
         assertNotNull(data)
         assertEquals(movie.value?.data?.results?.size, data.data?.results?.size)
@@ -134,6 +135,7 @@ class MovieRepositoryTest {
 
         `when`(repository.getPopularMovies(dummyIdMovie)).thenReturn(movie)
         val data = LiveDataTestUtil.getValue(repository.getPopularMovies(dummyIdMovie))
+        verify(repository).getPopularMovies(dummyIdMovie)
 
         assertNotNull(data)
         assertEquals(movie.value?.data?.size, data.data?.size)
@@ -147,6 +149,7 @@ class MovieRepositoryTest {
 
         `when`(repository.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
         val data = LiveDataTestUtil.getValue(repository.getDetailMovie(dummyIdMovie.toString()))
+        verify(repository).getDetailMovie(dummyIdMovie.toString())
 
         assertNotNull(data)
         assertEquals(movie.value?.data?.genres?.size, data.data?.genres?.size)
