@@ -67,7 +67,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `Tes response recommendation movie using Mock Web Server`() {
+    fun `Tes remote source API recommendation movie using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentRecommendationMovie)
         server.enqueue(successResponse)
 
@@ -82,7 +82,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `Tes response detail movie using Mock Web Server`() {
+    fun `Tes remote source API detail movie using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentDetailMovie)
         server.enqueue(successResponse)
         val dummyId = dummyDetailMovie.id ?: 459151
@@ -98,7 +98,7 @@ class MovieRepositoryTest {
     }
 
     @Test
-    fun `Tes response now playing movie using Mock Web Server`() {
+    fun `Tes remote source API now playing movie using Mock Web Server`() {
         val successResponse = MockResponse().setBody(contentRecommendationMovie)
         server.enqueue(successResponse)
 
