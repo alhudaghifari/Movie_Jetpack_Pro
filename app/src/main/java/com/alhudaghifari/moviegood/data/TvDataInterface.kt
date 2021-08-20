@@ -6,7 +6,7 @@ import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.data.remote.TvResponse
 import com.alhudaghifari.moviegood.utils.Resource
 
-interface TvDataSource {
+interface TvDataInterface {
     fun getOnTheAir() : LiveData<Resource<TvResponse>>
 
     fun getPopularTv(currentIdMovie: Int) : LiveData<Resource<List<TvItem>>>
