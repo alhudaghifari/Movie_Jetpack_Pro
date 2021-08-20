@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.local.MoviesData
 import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.databinding.ItemTvShowBinding
 import com.alhudaghifari.moviegood.ui.detail_tv.DetailTvActivity

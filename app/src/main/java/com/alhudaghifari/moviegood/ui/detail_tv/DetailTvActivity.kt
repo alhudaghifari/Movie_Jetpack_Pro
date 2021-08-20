@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.local.MoviesData
 import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailTvBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding

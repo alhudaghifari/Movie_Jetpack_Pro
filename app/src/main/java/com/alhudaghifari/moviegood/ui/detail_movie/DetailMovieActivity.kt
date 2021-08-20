@@ -5,17 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.local.MoviesData
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailMovieBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
-import com.alhudaghifari.moviegood.utils.Resource
 import com.alhudaghifari.moviegood.utils.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners

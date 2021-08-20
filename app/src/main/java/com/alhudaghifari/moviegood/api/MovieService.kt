@@ -1,6 +1,5 @@
 package com.alhudaghifari.moviegood.api
 
-import androidx.lifecycle.LiveData
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
 import retrofit2.Call

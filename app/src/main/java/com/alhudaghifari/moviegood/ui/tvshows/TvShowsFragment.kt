@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.databinding.FragmentTvShowsBinding
-import com.alhudaghifari.moviegood.ui.movies.MoviesAdapter
 import com.alhudaghifari.moviegood.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 

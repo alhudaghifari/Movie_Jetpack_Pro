@@ -6,7 +6,6 @@ import com.alhudaghifari.moviegood.api.MovieService
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
-import com.alhudaghifari.moviegood.ui.detail_movie.DetailMovieViewModel
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.utils.Resource
 import com.google.gson.Gson
@@ -16,8 +15,6 @@ import org.junit.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Retrofit
@@ -41,11 +38,8 @@ class MovieRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var repository: MovieRepository
-
-    @Mock
-    private lateinit var dataSource: MovieDataSource
+    private val remote = mock(MovieDataSource::class.java)
+    private val repository = MovieRepository(remote)
 
     @Before
     fun setUp() {
@@ -122,26 +116,12 @@ class MovieRepositoryTest {
         val res = Resource.success(dummyMovie)
         movie.value = res
 
-        `when`(repository.getNowPlaying()).thenReturn(movie)
+        `when`(remote.getNowPlaying()).thenReturn(movie)
         val data = LiveDataTestUtil.getValue(repository.getNowPlaying())
-        verify(repository).getNowPlaying()
+        verify(remote).getNowPlaying()
 
         assertNotNull(data)
         assertEquals(movie.value?.data?.results?.size, data.data?.results?.size)
-    }
-
-    @Test
-    fun getNowPlayingSource() {
-        val movie = MutableLiveData<Resource<MovieResponse>>()
-        val res = Resource.success(dummyMovie)
-        movie.value = res
-
-        `when`(dataSource.getNowPlaying()).thenReturn(movie)
-        val movieFromDataSource = LiveDataTestUtil.getValue(dataSource.getNowPlaying())
-        verify(dataSource).getNowPlaying()
-
-        assertNotNull(movieFromDataSource)
-        assertEquals(movie.value?.data?.results?.size, movieFromDataSource.data?.results?.size)
     }
 
     @Test
@@ -150,26 +130,12 @@ class MovieRepositoryTest {
         val res = Resource.success(dummyMovieItem)
         movie.value = res
 
-        `when`(repository.getPopularMovies(dummyIdMovie)).thenReturn(movie)
+        `when`(remote.getPopularMovies(dummyIdMovie)).thenReturn(movie)
         val data = LiveDataTestUtil.getValue(repository.getPopularMovies(dummyIdMovie))
-        verify(repository).getPopularMovies(dummyIdMovie)
+        verify(remote).getPopularMovies(dummyIdMovie)
 
         assertNotNull(data)
         assertEquals(movie.value?.data?.size, data.data?.size)
-    }
-
-    @Test
-    fun getPopularMoviesSource() {
-        val movie = MutableLiveData<Resource<List<MovieItem>>>()
-        val res = Resource.success(dummyMovieItem)
-        movie.value = res
-
-        `when`(dataSource.getPopularMovies(dummyIdMovie)).thenReturn(movie)
-        val movieFromDataSource = LiveDataTestUtil.getValue(dataSource.getPopularMovies(dummyIdMovie))
-        verify(dataSource).getPopularMovies(dummyIdMovie)
-
-        assertNotNull(movieFromDataSource)
-        assertEquals(movie.value?.data?.size, movieFromDataSource.data?.size)
     }
 
     @Test
@@ -178,25 +144,11 @@ class MovieRepositoryTest {
         val res = Resource.success(dummyDetailMovie)
         movie.value = res
 
-        `when`(repository.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
+        `when`(remote.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
         val data = LiveDataTestUtil.getValue(repository.getDetailMovie(dummyIdMovie.toString()))
-        verify(repository).getDetailMovie(dummyIdMovie.toString())
+        verify(remote).getDetailMovie(dummyIdMovie.toString())
 
         assertNotNull(data)
         assertEquals(movie.value?.data?.genres?.size, data.data?.genres?.size)
-    }
-
-    @Test
-    fun getDetailMovieSource() {
-        val movie = MutableLiveData<Resource<MovieDetailResponse>>()
-        val res = Resource.success(dummyDetailMovie)
-        movie.value = res
-
-        `when`(dataSource.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
-        val movieFromDataSource = LiveDataTestUtil.getValue(dataSource.getDetailMovie(dummyIdMovie.toString()))
-        verify(dataSource).getDetailMovie(dummyIdMovie.toString())
-
-        assertNotNull(movieFromDataSource)
-        assertEquals(movie.value?.data?.genres?.size, movieFromDataSource.data?.genres?.size)
     }
 }

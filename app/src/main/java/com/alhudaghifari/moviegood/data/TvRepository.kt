@@ -3,13 +3,14 @@ package com.alhudaghifari.moviegood.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.TvService
-import com.alhudaghifari.moviegood.data.remote.*
-import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
+import com.alhudaghifari.moviegood.data.remote.TvDetailResponse
+import com.alhudaghifari.moviegood.data.remote.TvItem
+import com.alhudaghifari.moviegood.data.remote.TvResponse
+import com.alhudaghifari.moviegood.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
-import com.alhudaghifari.moviegood.utils.Resource
 import kotlin.random.Random
 
 class TvRepository @Inject constructor(private val service: TvService) : TvDataSource {
