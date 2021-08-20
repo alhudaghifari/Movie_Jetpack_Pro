@@ -8,11 +8,11 @@ object EspressoIdlingResource {
     private val espressoTestIdlingResource = CountingIdlingResource(RESOURCE)
 
     fun increment() {
-//        espressoTestIdlingResource.increment()
+        espressoTestIdlingResource.increment()
     }
 
     fun decrement() {
-//        espressoTestIdlingResource.decrement()
+        espressoTestIdlingResource.decrement()
     }
 
     fun getEspressoIdlingResource(): IdlingResource = espressoTestIdlingResource
