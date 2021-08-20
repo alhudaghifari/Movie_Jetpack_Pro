@@ -9,7 +9,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.alhudaghifari.moviegood.R
+import com.alhudaghifari.moviegood.data.remote.*
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
+import com.alhudaghifari.moviegood.utils.MockResponseFileReader
+import com.google.gson.Gson
 import org.hamcrest.Matchers.any
 import org.junit.After
 import org.junit.Before
@@ -46,6 +49,20 @@ class MainActivityTest {
     }
 
     @Test
+    fun checkComponentInDetailMovie() {
+        val position = 2
+        onView(withId(R.id.rv_data)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_data)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
+        onView(withId(R.id.rv_data)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(position, click()))
+        onView(withId(R.id.tvTitleMovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvReleased)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_score)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_category)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_tagline)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_overview)).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun loadMovieRecommendation() {
         onView(withId(R.id.rv_data)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_data)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
@@ -79,6 +96,19 @@ class MainActivityTest {
         onView(withId(R.id.tvTitleMovie)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_score)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_tagline)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun checkComponentInDetailTv() {
+        onView(withText(R.string.tv_shows)).perform(click())
+        onView(withId(R.id.rv_tv_shows)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_tv_shows)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(3, click()))
+        onView(withId(R.id.tvTitleMovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.tvReleased)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_score)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_category)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_tagline)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_overview)).check(matches(isDisplayed()))
     }
 
     @Test

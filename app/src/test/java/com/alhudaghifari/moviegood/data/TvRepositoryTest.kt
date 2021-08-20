@@ -45,6 +45,9 @@ class TvRepositoryTest {
     @Mock
     private lateinit var repository: TvRepository
 
+    @Mock
+    private lateinit var dataSource: TvDataSource
+
     @Before
     fun setUp() {
         val gson = Gson()
@@ -128,6 +131,20 @@ class TvRepositoryTest {
     }
 
     @Test
+    fun getOnTheAirSource() {
+        val tv = MutableLiveData<Resource<TvResponse>>()
+        val res = Resource.success(dummyTv)
+        tv.value = res
+
+        Mockito.`when`(dataSource.getOnTheAir()).thenReturn(tv)
+        val data = LiveDataTestUtil.getValue(dataSource.getOnTheAir())
+        verify(dataSource).getOnTheAir()
+
+        assertNotNull(data)
+        assertEquals(tv.value?.data?.tvItems?.size, data.data?.tvItems?.size)
+    }
+
+    @Test
     fun getPopularTv() {
         val tv = MutableLiveData<Resource<List<TvItem>>>()
         val res = Resource.success(dummyTvItem)
@@ -142,6 +159,20 @@ class TvRepositoryTest {
     }
 
     @Test
+    fun getPopularTvSource() {
+        val tv = MutableLiveData<Resource<List<TvItem>>>()
+        val res = Resource.success(dummyTvItem)
+        tv.value = res
+
+        Mockito.`when`(dataSource.getPopularTv(dummyIdTv)).thenReturn(tv)
+        val data = LiveDataTestUtil.getValue(dataSource.getPopularTv(dummyIdTv))
+        verify(dataSource).getPopularTv(dummyIdTv)
+
+        assertNotNull(data)
+        assertEquals(tv.value?.data?.size, data.data?.size)
+    }
+
+    @Test
     fun getDetailTv() {
         val tv = MutableLiveData<Resource<TvDetailResponse>>()
         val res = Resource.success(dummyDetailTv)
@@ -150,6 +181,20 @@ class TvRepositoryTest {
         Mockito.`when`(repository.getDetailTv(dummyIdTv.toString())).thenReturn(tv)
         val data = LiveDataTestUtil.getValue(repository.getDetailTv(dummyIdTv.toString()))
         verify(repository).getDetailTv(dummyIdTv.toString())
+
+        assertNotNull(data)
+        assertEquals(tv.value?.data?.genres?.size, data.data?.genres?.size)
+    }
+
+    @Test
+    fun getDetailTvSource() {
+        val tv = MutableLiveData<Resource<TvDetailResponse>>()
+        val res = Resource.success(dummyDetailTv)
+        tv.value = res
+
+        Mockito.`when`(dataSource.getDetailTv(dummyIdTv.toString())).thenReturn(tv)
+        val data = LiveDataTestUtil.getValue(dataSource.getDetailTv(dummyIdTv.toString()))
+        verify(dataSource).getDetailTv(dummyIdTv.toString())
 
         assertNotNull(data)
         assertEquals(tv.value?.data?.genres?.size, data.data?.genres?.size)
