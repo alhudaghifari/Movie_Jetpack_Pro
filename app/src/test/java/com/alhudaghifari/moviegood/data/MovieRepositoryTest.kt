@@ -3,6 +3,7 @@ package com.alhudaghifari.moviegood.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.MovieService
+import com.alhudaghifari.moviegood.data.remote.source.MovieDataSource
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse

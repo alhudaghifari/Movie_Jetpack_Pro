@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.data
+package com.alhudaghifari.moviegood.data.remote.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
