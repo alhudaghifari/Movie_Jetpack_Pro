@@ -8,7 +8,7 @@ import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.ItemTvShowBinding
-import com.alhudaghifari.moviegood.ui.detail_tv.DetailTvActivity
+import com.alhudaghifari.moviegood.ui.detailtv.DetailTvActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 

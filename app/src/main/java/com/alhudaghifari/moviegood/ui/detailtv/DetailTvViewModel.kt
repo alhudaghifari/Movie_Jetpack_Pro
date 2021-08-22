@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.ui.detail_tv
+package com.alhudaghifari.moviegood.ui.detailtv
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

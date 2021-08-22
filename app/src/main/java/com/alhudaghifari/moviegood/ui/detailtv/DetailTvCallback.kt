@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.ui.detail_tv
+package com.alhudaghifari.moviegood.ui.detailtv
 
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 

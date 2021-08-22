@@ -18,7 +18,7 @@
             android:screenOrientation="portrait"
             android:label="@string/favorite"/>
         <activity
-            android:name=".ui.detail_tv.DetailTvActivity"
+            android:name=".ui.detailtv.DetailTvActivity"
             android:label="@string/detail_tv"
             android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"
