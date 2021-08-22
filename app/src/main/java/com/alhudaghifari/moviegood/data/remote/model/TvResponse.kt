@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.data.remote
+package com.alhudaghifari.moviegood.data.remote.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -7,16 +7,16 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TvResponse(
 
-	@field:SerializedName("results")
+    @field:SerializedName("results")
 	val tvItems: List<TvItem>? = null,
 
-	@field:SerializedName("page")
+    @field:SerializedName("page")
 	val page: Int? = null,
 
-	@field:SerializedName("total_pages")
+    @field:SerializedName("total_pages")
 	val totalPages: Int? = null,
 
-	@field:SerializedName("total_results")
+    @field:SerializedName("total_results")
 	val totalResults: Int? = null
 ) : Parcelable
 

@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.alhudaghifari.moviegood.data.TvRepository
-import com.alhudaghifari.moviegood.data.remote.TvResponse
+import com.alhudaghifari.moviegood.data.remote.model.TvResponse
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson

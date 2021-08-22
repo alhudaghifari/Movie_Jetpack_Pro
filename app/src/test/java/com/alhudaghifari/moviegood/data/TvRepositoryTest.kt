@@ -3,7 +3,9 @@ package com.alhudaghifari.moviegood.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.TvService
-import com.alhudaghifari.moviegood.data.remote.*
+import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.TvItem
+import com.alhudaghifari.moviegood.data.remote.model.TvResponse
 import com.alhudaghifari.moviegood.data.remote.source.TvDataSource
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource

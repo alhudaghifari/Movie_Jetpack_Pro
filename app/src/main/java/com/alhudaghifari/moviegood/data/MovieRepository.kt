@@ -1,9 +1,9 @@
 package com.alhudaghifari.moviegood.data
 
 import androidx.lifecycle.LiveData
-import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
-import com.alhudaghifari.moviegood.data.remote.MovieItem
-import com.alhudaghifari.moviegood.data.remote.MovieResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieItem
+import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
 import com.alhudaghifari.moviegood.data.remote.source.MovieDataSource
 import com.alhudaghifari.moviegood.vo.Resource
 import javax.inject.Inject

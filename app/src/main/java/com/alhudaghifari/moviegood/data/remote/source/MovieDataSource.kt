@@ -3,9 +3,9 @@ package com.alhudaghifari.moviegood.data.remote.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.MovieService
-import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
-import com.alhudaghifari.moviegood.data.remote.MovieItem
-import com.alhudaghifari.moviegood.data.remote.MovieResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieItem
+import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
 import com.alhudaghifari.moviegood.vo.Resource
 import retrofit2.Call
 import retrofit2.Callback

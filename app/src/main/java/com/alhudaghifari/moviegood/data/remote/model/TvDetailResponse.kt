@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.data.remote
+package com.alhudaghifari.moviegood.data.remote.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -7,55 +7,55 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TvDetailResponse(
 
-	@field:SerializedName("overview")
+    @field:SerializedName("overview")
 	val overview: String? = null,
 
-	@field:SerializedName("original_language")
+    @field:SerializedName("original_language")
 	val originalLanguage: String? = null,
 
-	@field:SerializedName("number_of_episodes")
+    @field:SerializedName("number_of_episodes")
 	val numberOfEpisodes: Int? = null,
 
-	@field:SerializedName("created_by")
+    @field:SerializedName("created_by")
 	val createdBy: List<CreatedByItem?>? = null,
 
-	@field:SerializedName("poster_path")
+    @field:SerializedName("poster_path")
 	val posterPath: String? = null,
 
-	@field:SerializedName("backdrop_path")
+    @field:SerializedName("backdrop_path")
 	val backdropPath: String? = null,
 
-	@field:SerializedName("genres")
+    @field:SerializedName("genres")
 	val genres: List<GenresItem?>? = null,
 
-	@field:SerializedName("original_name")
+    @field:SerializedName("original_name")
 	val originalName: String? = null,
 
-	@field:SerializedName("popularity")
+    @field:SerializedName("popularity")
 	val popularity: Double? = null,
 
-	@field:SerializedName("vote_average")
+    @field:SerializedName("vote_average")
 	val voteAverage: Double? = null,
 
-	@field:SerializedName("name")
+    @field:SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("tagline")
+    @field:SerializedName("tagline")
 	val tagline: String? = null,
 
-	@field:SerializedName("id")
+    @field:SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("number_of_seasons")
+    @field:SerializedName("number_of_seasons")
 	val numberOfSeasons: Int? = null,
 
-	@field:SerializedName("in_production")
+    @field:SerializedName("in_production")
 	val inProduction: Boolean? = null,
 
-	@field:SerializedName("vote_count")
+    @field:SerializedName("vote_count")
 	val voteCount: Int? = null,
 
-	@field:SerializedName("homepage")
+    @field:SerializedName("homepage")
 	val homepage: String? = null
 ) : Parcelable
 

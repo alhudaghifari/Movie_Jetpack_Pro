@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.remote.TvItem
+import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailTvBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource

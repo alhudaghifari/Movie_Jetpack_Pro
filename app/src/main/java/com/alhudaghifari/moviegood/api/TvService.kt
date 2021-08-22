@@ -1,7 +1,7 @@
 package com.alhudaghifari.moviegood.api
 
-import com.alhudaghifari.moviegood.data.remote.TvDetailResponse
-import com.alhudaghifari.moviegood.data.remote.TvResponse
+import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.TvResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

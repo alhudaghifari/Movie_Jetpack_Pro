@@ -4,9 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.alhudaghifari.moviegood.data.MovieRepository
-import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
-import com.alhudaghifari.moviegood.data.remote.MovieItem
-import com.alhudaghifari.moviegood.data.remote.MovieResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieItem
+import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson

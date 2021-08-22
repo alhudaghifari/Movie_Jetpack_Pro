@@ -3,8 +3,8 @@ package com.alhudaghifari.moviegood.ui.detail_movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.alhudaghifari.moviegood.data.MovieRepository
-import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
-import com.alhudaghifari.moviegood.data.remote.MovieItem
+import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

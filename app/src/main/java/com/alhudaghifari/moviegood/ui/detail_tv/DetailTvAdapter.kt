@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.remote.TvItem
+import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.ItemRecommendationBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

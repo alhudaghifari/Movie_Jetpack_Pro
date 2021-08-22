@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.data.remote
+package com.alhudaghifari.moviegood.data.remote.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -6,39 +6,39 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MovieDetailResponse(
-	@field:SerializedName("imdb_id")
+    @field:SerializedName("imdb_id")
 	val imdbId: String? = null,
 
-	@field:SerializedName("video")
+    @field:SerializedName("video")
 	val video: Boolean? = null,
 
-	@field:SerializedName("title")
+    @field:SerializedName("title")
 	val title: String? = null,
 
-	@field:SerializedName("backdrop_path")
+    @field:SerializedName("backdrop_path")
 	val backdropPath: String? = null,
 
-	@field:SerializedName("genres")
+    @field:SerializedName("genres")
 	val genres: List<GenresItem?>? = null,
 
-	@field:SerializedName("id")
+    @field:SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("overview")
+    @field:SerializedName("overview")
 	val overview: String? = null,
 
-	@field:SerializedName("original_title")
+    @field:SerializedName("original_title")
 	val originalTitle: String? = null,
 
-	@field:SerializedName("poster_path")
+    @field:SerializedName("poster_path")
 	val posterPath: String? = null,
 
-	@field:SerializedName("release_date")
+    @field:SerializedName("release_date")
 	val releaseDate: String? = null,
 
-	@field:SerializedName("vote_average")
+    @field:SerializedName("vote_average")
 	val voteAverage: Double? = null,
 
-	@field:SerializedName("tagline")
+    @field:SerializedName("tagline")
 	val tagline: String? = null,
 ) : Parcelable

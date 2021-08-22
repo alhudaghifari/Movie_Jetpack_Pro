@@ -3,8 +3,8 @@ package com.alhudaghifari.moviegood.ui.detail_tv
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.alhudaghifari.moviegood.data.TvRepository
-import com.alhudaghifari.moviegood.data.remote.TvDetailResponse
-import com.alhudaghifari.moviegood.data.remote.TvItem
+import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
+import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
