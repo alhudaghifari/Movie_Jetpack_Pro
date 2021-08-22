@@ -3,11 +3,10 @@ package com.alhudaghifari.moviegood.data.remote.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.TvService
-import com.alhudaghifari.moviegood.data.TvDataInterface
 import com.alhudaghifari.moviegood.data.remote.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.data.remote.TvResponse
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.alhudaghifari.moviegood.data.MovieRepository
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

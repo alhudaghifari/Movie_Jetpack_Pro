@@ -13,7 +13,7 @@ import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailMovieBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
-import com.alhudaghifari.moviegood.utils.Status
+import com.alhudaghifari.moviegood.vo.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions

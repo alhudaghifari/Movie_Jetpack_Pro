@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.databinding.FragmentMoviesBinding
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
-import com.alhudaghifari.moviegood.utils.Status
+import com.alhudaghifari.moviegood.vo.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

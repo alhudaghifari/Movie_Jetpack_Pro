@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.alhudaghifari.moviegood.data.TvRepository
 import com.alhudaghifari.moviegood.data.remote.TvResponse
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

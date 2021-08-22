@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 
 interface MovieDataInterface {
     fun getNowPlaying() : LiveData<Resource<MovieResponse>>

@@ -6,7 +6,7 @@ import com.alhudaghifari.moviegood.api.TvService
 import com.alhudaghifari.moviegood.data.remote.*
 import com.alhudaghifari.moviegood.data.remote.source.TvDataSource
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.verify
 import okhttp3.mockwebserver.MockResponse
@@ -18,8 +18,6 @@ import org.junit.Rule
 
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner

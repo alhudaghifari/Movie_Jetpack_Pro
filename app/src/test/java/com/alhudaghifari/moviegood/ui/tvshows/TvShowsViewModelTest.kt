@@ -3,15 +3,11 @@ package com.alhudaghifari.moviegood.ui.tvshows
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.alhudaghifari.moviegood.api.TvService
 import com.alhudaghifari.moviegood.data.TvRepository
 import com.alhudaghifari.moviegood.data.remote.TvResponse
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -21,9 +17,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(MockitoJUnitRunner::class)
 class TvShowsViewModelTest {

@@ -5,7 +5,7 @@ import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
 import com.alhudaghifari.moviegood.data.remote.source.MovieDataSource
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(

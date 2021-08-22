@@ -5,7 +5,7 @@ import com.alhudaghifari.moviegood.data.remote.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.TvItem
 import com.alhudaghifari.moviegood.data.remote.TvResponse
 import com.alhudaghifari.moviegood.data.remote.source.TvDataSource
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import javax.inject.Inject
 
 class TvRepository @Inject constructor(

@@ -6,7 +6,7 @@ import com.alhudaghifari.moviegood.api.MovieService
 import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

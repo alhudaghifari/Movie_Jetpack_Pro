@@ -8,7 +8,7 @@ import com.alhudaghifari.moviegood.data.remote.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.MovieItem
 import com.alhudaghifari.moviegood.data.remote.MovieResponse
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
-import com.alhudaghifari.moviegood.utils.Resource
+import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

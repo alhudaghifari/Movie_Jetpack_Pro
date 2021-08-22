@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.utils
+package com.alhudaghifari.moviegood.vo
 
 enum class Status {
     SUCCESS,
