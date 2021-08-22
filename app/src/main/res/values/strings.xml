@@ -5,6 +5,7 @@
     <string name="tv_shows">TV Shows</string>
     <string name="detail_movie">Detail Movie</string>
     <string name="detail_tv">Detail TV</string>
+    <string name="favorite">Favorite</string>
 
     <string name="title_movies">Title Movies</string>
     <string name="released">Released</string>
@@ -18,7 +19,11 @@
     <string name="recommendation">Recommendation</string>
     <string name="score_value">50%</string>
     <string name="no_data">No Data</string>
+    <string name="no_fav_mov_data">No Favorite Movie Data</string>
+    <string name="no_fav_tv_data">No Favorite TV Data</string>
     <string name="no_recommendation">No Data Recommendation</string>
 
     <string name="share_text">Film %s sangat menarik untuk ditonton</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

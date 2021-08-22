@@ -1,0 +1,26 @@
+package com.alhudaghifari.moviegood.ui.favorite
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.annotation.StringRes
+import com.alhudaghifari.moviegood.R
+import com.alhudaghifari.moviegood.databinding.ActivityFavoriteBinding
+import com.google.android.material.tabs.TabLayoutMediator
+
+class FavoriteActivity : AppCompatActivity() {
+
+    private val TAB_TITLES_FAVORITE = intArrayOf(R.string.movies,
+        R.string.tv_shows)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityFavoriteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val pagerAdapter = FavoriteAdapter(this)
+        binding.viewPager2.adapter = pagerAdapter
+
+        TabLayoutMediator(binding.tabs, binding.viewPager2) { tab, position ->
+            tab.text = getString(TAB_TITLES_FAVORITE[position])
+        }.attach()
+    }
+}
