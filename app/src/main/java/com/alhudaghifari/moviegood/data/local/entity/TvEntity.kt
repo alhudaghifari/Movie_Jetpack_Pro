@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.data.local
+package com.alhudaghifari.moviegood.data.local.entity
 
 import android.os.Parcelable
 import androidx.room.Entity
