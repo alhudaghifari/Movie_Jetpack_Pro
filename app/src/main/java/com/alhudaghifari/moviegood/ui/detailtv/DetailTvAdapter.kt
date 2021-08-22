@@ -16,7 +16,7 @@ class DetailTvAdapter (private val callback: DetailTvCallback) :
     private val listRecommendation = ArrayList<TvItem>()
 
     fun setRecommendationData(data: List<TvItem>?) {
-        if (data == null) return
+        if (data.isNullOrEmpty()) return
         this.listRecommendation.clear()
         this.listRecommendation.addAll(data)
     }

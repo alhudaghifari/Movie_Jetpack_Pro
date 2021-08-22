@@ -123,7 +123,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
         })
     }
 
-    fun showDetailLoading() {
+    private fun showDetailLoading() {
         with(binding) {
             progressBarDetail.visibility = View.VISIBLE
             tvCategoryTitle.visibility = View.GONE
@@ -133,7 +133,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
         }
     }
 
-    fun showDetailAndHideLoading() {
+    private fun showDetailAndHideLoading() {
         with(binding) {
             progressBarDetail.visibility = View.GONE
             tvCategoryTitle.visibility = View.VISIBLE
@@ -143,7 +143,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
         }
     }
 
-    fun hideDetail() {
+    private fun hideDetail() {
         with(binding) {
             progressBarDetail.visibility = View.GONE
             tvCategoryTitle.visibility = View.GONE
@@ -153,29 +153,29 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
         }
     }
 
-    fun showRecLoading() {
+    private fun showRecLoading() {
         with(binding) {
             progressBarRecommendation.visibility = View.VISIBLE
             rvRecommendation.visibility = View.GONE
         }
     }
 
-    fun showRecAndHideLoading() {
+    private fun showRecAndHideLoading() {
         with(binding) {
             progressBarRecommendation.visibility = View.GONE
             rvRecommendation.visibility = View.VISIBLE
         }
     }
 
-    fun showNoDataRecommendationText() {
+    private fun showNoDataRecommendationText() {
         binding.tvNoRecommendation.visibility = View.VISIBLE
     }
 
-    fun hideNoDataRecommendationText() {
+    private fun hideNoDataRecommendationText() {
         binding.tvNoRecommendation.visibility = View.GONE
     }
 
-    fun populateMovie(data : MovieItem) {
+    private fun populateMovie(data : MovieItem) {
         with(binding) {
             val percentScore = data.voteAverage?.times(10) ?: 0
             val score = "${getString(R.string.score)} : ${percentScore.toInt()}%"

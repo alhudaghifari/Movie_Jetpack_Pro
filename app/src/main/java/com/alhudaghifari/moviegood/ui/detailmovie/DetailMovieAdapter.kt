@@ -16,7 +16,7 @@ class DetailMovieAdapter(private val callback: DetailMovieCallback) :
     private val listRecommendation = ArrayList<MovieItem>()
 
     fun setRecommendationData(data: List<MovieItem>?) {
-        if (data == null) return
+        if (data.isNullOrEmpty()) return
         this.listRecommendation.clear()
         this.listRecommendation.addAll(data)
     }

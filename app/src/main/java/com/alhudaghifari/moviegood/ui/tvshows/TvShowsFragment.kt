@@ -83,12 +83,12 @@ class TvShowsFragment : Fragment(), TvShowCallback {
         fragmentTvShowsBinding.progressBar.visibility = View.GONE
     }
 
-    fun showNoData() {
+    private fun showNoData() {
         fragmentTvShowsBinding.rvTvShows.visibility = View.GONE
         fragmentTvShowsBinding.tvNoData.visibility = View.VISIBLE
     }
 
-    fun showDataList() {
+    private fun showDataList() {
         fragmentTvShowsBinding.rvTvShows.visibility = View.VISIBLE
         fragmentTvShowsBinding.tvNoData.visibility = View.GONE
     }

@@ -79,12 +79,12 @@ class MoviesFragment : Fragment() {
         fragmentAcademyBinding.rvData.visibility = View.VISIBLE
     }
 
-    fun showNoData() {
+    private fun showNoData() {
         fragmentAcademyBinding.rvData.visibility = View.GONE
         fragmentAcademyBinding.tvNoData.visibility = View.VISIBLE
     }
 
-    fun showDataList() {
+    private fun showDataList() {
         fragmentAcademyBinding.rvData.visibility = View.VISIBLE
         fragmentAcademyBinding.tvNoData.visibility = View.GONE
     }
