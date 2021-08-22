@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.ui.detail_movie
+package com.alhudaghifari.moviegood.ui.detailmovie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData

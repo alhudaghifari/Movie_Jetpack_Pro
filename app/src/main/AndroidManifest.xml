@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.detail_movie.DetailMovieActivity"
+            android:name=".ui.detailmovie.DetailMovieActivity"
             android:label="@string/detail_movie"
             android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"

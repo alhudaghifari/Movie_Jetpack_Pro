@@ -1,4 +1,4 @@
-package com.alhudaghifari.moviegood.ui.detail_movie
+package com.alhudaghifari.moviegood.ui.detailmovie
 
 import android.content.Intent
 import android.os.Bundle
