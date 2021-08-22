@@ -16,8 +16,8 @@ import kotlin.random.Random
 
 class TvDataSource @Inject constructor(
     private val service: TvService
-) : TvDataInterface {
-    override fun getOnTheAir(): LiveData<Resource<TvResponse>> {
+) {
+    fun getOnTheAir(): LiveData<Resource<TvResponse>> {
         val data = MutableLiveData<Resource<TvResponse>>()
         data.postValue(Resource.loading(null))
 
@@ -38,7 +38,7 @@ class TvDataSource @Inject constructor(
         return data
     }
 
-    override fun getPopularTv(currentIdMovie: Int): LiveData<Resource<List<TvItem>>> {
+    fun getPopularTv(currentIdMovie: Int): LiveData<Resource<List<TvItem>>> {
         val dataLive = MutableLiveData<Resource<List<TvItem>>>()
         dataLive.postValue(Resource.loading(null))
         service.getPopular().enqueue(object : Callback<TvResponse> {
@@ -74,7 +74,7 @@ class TvDataSource @Inject constructor(
         return dataLive
     }
 
-    override fun getDetailTv(idTv: String): LiveData<Resource<TvDetailResponse>> {
+    fun getDetailTv(idTv: String): LiveData<Resource<TvDetailResponse>> {
         val data = MutableLiveData<Resource<TvDetailResponse>>()
         data.postValue(Resource.loading(null))
         service.getDetailTv(idTv).enqueue(object : Callback<TvDetailResponse> {
