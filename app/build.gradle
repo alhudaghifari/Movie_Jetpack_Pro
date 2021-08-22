@@ -19,6 +19,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "k", "\"f1e9fb924b103394d151fc2c954d2d8e\"")
     }
 
     buildTypes {
@@ -84,6 +85,10 @@ dependencies {
 
     // idling resource
     implementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
+
+    // room
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
 
     // dagger and hilt
     implementation "com.google.dagger:hilt-android:2.37"

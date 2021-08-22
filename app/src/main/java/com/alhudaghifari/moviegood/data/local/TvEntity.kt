@@ -1,16 +1,19 @@
 package com.alhudaghifari.moviegood.data.local
 
 import android.os.Parcelable
+import androidx.room.Entity
 import kotlinx.parcelize.Parcelize
 
+
 @Parcelize
-data class MoviesData(
-    var moviesId: String,
+@Entity(tableName = "tv_table")
+data class TvEntity(
+    var tvId: String,
     var title: String,
     var released: String,
     var category: String,
     var score: String,
     var overview: String,
-    var director: String,
     var imagePath: String,
+    var tagline: String,
 ) : Parcelable
