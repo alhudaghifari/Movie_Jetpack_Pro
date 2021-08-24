@@ -87,7 +87,7 @@ class TvRepository @Inject constructor(
                         it.posterPath ?: "", it.tagline ?: "tagline_",
                     )
                 }
-                localDataSource.updateTv(tv)
+                localDataSource.insertATv(tv)
             }
 
         }.asLiveData()

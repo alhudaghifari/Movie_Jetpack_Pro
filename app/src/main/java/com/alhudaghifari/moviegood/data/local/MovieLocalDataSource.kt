@@ -18,6 +18,8 @@ class MovieLocalDataSource @Inject constructor(private val dao: AppDao){
 
     fun insertMovies(movies: List<MovieEntity>) = dao.insertMovie(movies)
 
+    fun insertAMovie(movie: MovieEntity) = dao.insertAMovie(movie)
+
     fun getDetailMovieById(id: String) = dao.getDetailMovieById(id)
 
     fun updateMovie(movie: MovieEntity) = dao.updateMovie(movie)

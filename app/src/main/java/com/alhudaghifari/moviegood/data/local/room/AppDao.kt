@@ -14,6 +14,9 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movies: List<MovieEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAMovie(movie: MovieEntity)
+
     @Query("SELECT * FROM movie_table ")
     fun getNowPlayingMovie(): DataSource.Factory<Int, MovieEntity>
 
@@ -28,6 +31,9 @@ interface AppDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTv(movies: List<TvEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertATv(tv: TvEntity)
 
     @Query("SELECT * FROM tv_table ")
     fun getListTv(): DataSource.Factory<Int, TvEntity>

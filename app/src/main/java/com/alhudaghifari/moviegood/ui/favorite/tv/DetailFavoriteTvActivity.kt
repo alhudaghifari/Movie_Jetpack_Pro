@@ -55,6 +55,7 @@ class DetailFavoriteTvActivity : AppCompatActivity(), DetailTvCallback {
                 populateTv(tvData)
             }
         }
+        setFavoriteButtonListener()
     }
 
     override fun onClicked(data: TvEntity) {

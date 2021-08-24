@@ -1,9 +1,6 @@
 package com.alhudaghifari.moviegood.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.alhudaghifari.moviegood.data.local.MovieLocalDataSource
@@ -11,12 +8,9 @@ import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.ApiResponse
 import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
-import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
 import com.alhudaghifari.moviegood.data.remote.source.MovieRemoteDataSource
 import com.alhudaghifari.moviegood.utils.AppExecutors
 import com.alhudaghifari.moviegood.vo.Resource
-import com.alhudaghifari.moviegood.vo.Status
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -94,7 +88,9 @@ class MovieRepository @Inject constructor(
                         it.posterPath ?: "", it.tagline ?: "tagline_",
                     )
                 }
-                localDataSource.updateMovie(movie)
+
+                localDataSource.insertAMovie(movie)
+
             }
 
         }.asLiveData()
