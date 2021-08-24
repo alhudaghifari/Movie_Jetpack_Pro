@@ -2,11 +2,17 @@ package com.alhudaghifari.moviegood.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.alhudaghifari.moviegood.api.TvService
+import com.alhudaghifari.moviegood.data.local.TvLocalDataSource
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
+import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.data.remote.model.TvResponse
 import com.alhudaghifari.moviegood.data.remote.source.TvRemoteDataSource
+import com.alhudaghifari.moviegood.utils.AppExecutors
+import com.alhudaghifari.moviegood.utils.DummyGenerator
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
@@ -20,6 +26,7 @@ import org.junit.Rule
 
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
@@ -29,7 +36,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(MockitoJUnitRunner::class)
 class TvRepositoryTest {
-
 
     private val server: MockWebServer = MockWebServer()
     private val MOCK_WEBSERVER_PORT = 8000
@@ -41,12 +47,15 @@ class TvRepositoryTest {
     private lateinit var dummyTvItem: List<TvItem>
     private lateinit var dummyDetailTv: TvDetailResponse
     private var dummyIdTv: Int = 0
+    private val dummyRemoteTv = DummyGenerator.generateRemoteDummyTvShows()
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val remote = mock(TvRemoteDataSource::class.java)
-    private val repository = TvRepository(remote)
+    private val local = mock(TvLocalDataSource::class.java)
+    private val appExecutors = mock(AppExecutors::class.java)
+    private val repository = TvRepository(remote, local, appExecutors)
 
     @Before
     fun setUp() {
@@ -118,16 +127,14 @@ class TvRepositoryTest {
 
     @Test
     fun getOnTheAir() {
-        val tv = MutableLiveData<Resource<TvResponse>>()
-        val res = Resource.success(dummyTv)
-        tv.value = res
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvEntity>
+        `when`(local.getListTv()).thenReturn(dataSourceFactory)
+        repository.getOnTheAir()
 
-        `when`(remote.getOnTheAir()).thenReturn(tv)
-        val data = LiveDataTestUtil.getValue(repository.getOnTheAir())
-        verify(remote).getOnTheAir()
-
-        assertNotNull(data)
-        assertEquals(tv.value?.data?.tvItems?.size, data.data?.tvItems?.size)
+        val movieEntityList = Resource.success(PagedListUtil.mockPagedList(DummyGenerator.generateDummyTvShows()))
+        Mockito.verify(local).getListTv()
+        assertNotNull(movieEntityList)
+        assertEquals(dummyRemoteTv.size, movieEntityList.data?.size)
     }
 
     @Test
@@ -146,15 +153,18 @@ class TvRepositoryTest {
 
     @Test
     fun getDetailTv() {
-        val tv = MutableLiveData<Resource<TvDetailResponse>>()
-        val res = Resource.success(dummyDetailTv)
-        tv.value = res
+        val movie = MutableLiveData<TvEntity>()
+        val dummyMovieList = DummyGenerator.generateDummyTvShows()
+        val dummyMovie = dummyMovieList[0]
+        movie.postValue(dummyMovie)
+        val idTv = dummyMovie.tvId
 
-        `when`(remote.getDetailTv(dummyIdTv.toString())).thenReturn(tv)
-        val data = LiveDataTestUtil.getValue(repository.getDetailTv(dummyIdTv.toString()))
-        verify(remote).getDetailTv(dummyIdTv.toString())
+        `when`(local.getDetailTvById(idTv)).thenReturn(movie)
+        repository.getDetailTv(idTv)
 
-        assertNotNull(data)
-        assertEquals(tv.value?.data?.genres?.size, data.data?.genres?.size)
+        val movieEntityList = Resource.success(PagedListUtil.mockPagedList(DummyGenerator.generateDummyTvShows()))
+        Mockito.verify(local).getDetailTvById(idTv)
+        assertNotNull(movieEntityList)
+        assertEquals(dummyMovie, movieEntityList.data!![0]!!)
     }
 }

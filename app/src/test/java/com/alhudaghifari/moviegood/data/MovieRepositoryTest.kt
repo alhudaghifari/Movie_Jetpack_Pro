@@ -2,13 +2,16 @@ package com.alhudaghifari.moviegood.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.alhudaghifari.moviegood.api.MovieService
 import com.alhudaghifari.moviegood.data.local.MovieLocalDataSource
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.source.MovieRemoteDataSource
 import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
 import com.alhudaghifari.moviegood.utils.AppExecutors
+import com.alhudaghifari.moviegood.utils.DummyGenerator
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
@@ -37,6 +40,7 @@ class MovieRepositoryTest {
     private lateinit var dummyMovieItem: List<MovieItem>
     private lateinit var dummyDetailMovie: MovieDetailResponse
     private var dummyIdMovie: Int = 0
+    private val dummyRemoteMovie = DummyGenerator.generateRemoteDummyMovies()
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -114,19 +118,16 @@ class MovieRepositoryTest {
         assertEquals(dummyMovie.results?.size ?: -1, responseBody?.results?.size ?: 0)
     }
 
-
     @Test
     fun getNowPlaying() {
-        val movie = MutableLiveData<Resource<MovieResponse>>()
-        val res = Resource.success(dummyMovie)
-        movie.value = res
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
+        `when`(local.getNowPlayingMovie()).thenReturn(dataSourceFactory)
+        repository.getNowPlaying()
 
-        `when`(remote.getNowPlaying()).thenReturn(movie)
-        val data = LiveDataTestUtil.getValue(repository.getNowPlaying())
-        verify(remote).getNowPlaying()
-
-        assertNotNull(data)
-        assertEquals(movie.value?.data?.results?.size, data.data?.results?.size)
+        val movieEntityList = Resource.success(PagedListUtil.mockPagedList(DummyGenerator.generateDummyMovies()))
+        verify(local).getNowPlayingMovie()
+        assertNotNull(movieEntityList)
+        assertEquals(dummyRemoteMovie.size, movieEntityList.data?.size)
     }
 
     @Test
@@ -145,15 +146,18 @@ class MovieRepositoryTest {
 
     @Test
     fun getDetailMovie() {
-        val movie = MutableLiveData<Resource<MovieDetailResponse>>()
-        val res = Resource.success(dummyDetailMovie)
-        movie.value = res
+        val movie = MutableLiveData<MovieEntity>()
+        val dummyMovieList = DummyGenerator.generateDummyMovies()
+        val dummyMovie = dummyMovieList[0]
+        movie.postValue(dummyMovie)
+        val idMovie = dummyMovie.movieId
 
-        `when`(remote.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
-        val data = LiveDataTestUtil.getValue(repository.getDetailMovie(dummyIdMovie.toString()))
-        verify(remote).getDetailMovie(dummyIdMovie.toString())
+        `when`(local.getDetailMovieById(idMovie)).thenReturn(movie)
+        repository.getDetailMovie(idMovie)
 
-        assertNotNull(data)
-        assertEquals(movie.value?.data?.genres?.size, data.data?.genres?.size)
+        val movieEntityList = Resource.success(PagedListUtil.mockPagedList(DummyGenerator.generateDummyMovies()))
+        verify(local).getDetailMovieById(idMovie)
+        assertNotNull(movieEntityList)
+        assertEquals(dummyMovie, movieEntityList.data!![0]!!)
     }
 }
