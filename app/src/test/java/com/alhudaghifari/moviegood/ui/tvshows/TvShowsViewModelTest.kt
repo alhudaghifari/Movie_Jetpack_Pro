@@ -4,15 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.alhudaghifari.moviegood.data.PagedListUtil
 import com.alhudaghifari.moviegood.data.TvRepository
-import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
-import com.alhudaghifari.moviegood.data.remote.model.TvResponse
 import com.alhudaghifari.moviegood.utils.DummyGenerator
-import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
-import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before

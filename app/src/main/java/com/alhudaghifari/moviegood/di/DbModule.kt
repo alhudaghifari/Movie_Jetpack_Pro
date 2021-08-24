@@ -1,7 +1,6 @@
 package com.alhudaghifari.moviegood.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.alhudaghifari.moviegood.data.local.room.AppDao
 import com.alhudaghifari.moviegood.data.local.room.AppDatabase

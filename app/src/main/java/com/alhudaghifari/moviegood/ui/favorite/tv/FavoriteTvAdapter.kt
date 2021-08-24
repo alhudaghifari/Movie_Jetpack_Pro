@@ -8,11 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.databinding.ItemMoviesBinding
-import com.alhudaghifari.moviegood.ui.favorite.movies.DetailFavoriteMoviesActivity
-import com.alhudaghifari.moviegood.ui.favorite.movies.FavoriteMoviesAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 

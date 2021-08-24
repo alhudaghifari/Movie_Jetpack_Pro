@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
-import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.FragmentTvShowsBinding
 import com.alhudaghifari.moviegood.vo.Status
 import dagger.hilt.android.AndroidEntryPoint

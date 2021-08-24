@@ -1,22 +1,15 @@
 package com.alhudaghifari.moviegood.ui.favorite.movies
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
 import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
-import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailFavoriteMoviesBinding
-import com.alhudaghifari.moviegood.databinding.ActivityDetailMovieBinding
-import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailFavoriteBinding
-import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieActivity
-import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieAdapter
 import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieCallback
 import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieViewModel
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource

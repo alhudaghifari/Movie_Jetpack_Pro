@@ -1,23 +1,17 @@
 package com.alhudaghifari.moviegood.ui.favorite.tv
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
-import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.databinding.*
-import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieViewModel
 import com.alhudaghifari.moviegood.ui.detailtv.DetailTvActivity
-import com.alhudaghifari.moviegood.ui.detailtv.DetailTvAdapter
 import com.alhudaghifari.moviegood.ui.detailtv.DetailTvCallback
 import com.alhudaghifari.moviegood.ui.detailtv.DetailTvViewModel
-import com.alhudaghifari.moviegood.ui.favorite.movies.DetailFavoriteMoviesActivity
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.vo.Status
 import com.bumptech.glide.Glide

@@ -7,10 +7,10 @@ import androidx.paging.PagedList
 import com.alhudaghifari.moviegood.data.TvRepository
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.utils.DummyGenerator
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock

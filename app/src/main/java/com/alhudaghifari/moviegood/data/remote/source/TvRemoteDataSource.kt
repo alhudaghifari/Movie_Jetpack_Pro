@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.TvService
 import com.alhudaghifari.moviegood.data.remote.ApiResponse
-import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.data.remote.model.TvResponse

@@ -1,8 +1,7 @@
 package com.alhudaghifari.moviegood.ui.favorite
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.databinding.ActivityFavoriteBinding
 import com.google.android.material.tabs.TabLayoutMediator

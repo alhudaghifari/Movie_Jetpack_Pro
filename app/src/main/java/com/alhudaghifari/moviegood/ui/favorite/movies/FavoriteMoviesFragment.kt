@@ -1,18 +1,14 @@
 package com.alhudaghifari.moviegood.ui.favorite.movies
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.databinding.FragmentFavoriteMoviesBinding
-import com.alhudaghifari.moviegood.databinding.FragmentMoviesBinding
-import com.alhudaghifari.moviegood.ui.movies.MoviesAdapter
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
-import com.alhudaghifari.moviegood.vo.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

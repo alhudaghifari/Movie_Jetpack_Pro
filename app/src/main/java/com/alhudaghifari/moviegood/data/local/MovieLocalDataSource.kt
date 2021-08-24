@@ -1,9 +1,7 @@
 package com.alhudaghifari.moviegood.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
-import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.local.room.AppDao
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,10 +1,8 @@
 package com.alhudaghifari.moviegood.ui.favorite
 
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.ui.favorite.movies.FavoriteMoviesFragment
 import com.alhudaghifari.moviegood.ui.favorite.tv.FavoriteTvFragment
 

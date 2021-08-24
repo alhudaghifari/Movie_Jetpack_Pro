@@ -6,19 +6,16 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.alhudaghifari.moviegood.data.MovieRepository
 import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
-import com.alhudaghifari.moviegood.ui.movies.MoviesViewModel
 import com.alhudaghifari.moviegood.utils.DummyGenerator
-import com.alhudaghifari.moviegood.vo.Resource
-import org.mockito.Mockito.verify
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)

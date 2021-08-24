@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.alhudaghifari.moviegood.api.TvService
 import com.alhudaghifari.moviegood.data.local.TvLocalDataSource
-import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
@@ -20,10 +19,10 @@ import com.nhaarman.mockitokotlin2.verify
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
-
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito

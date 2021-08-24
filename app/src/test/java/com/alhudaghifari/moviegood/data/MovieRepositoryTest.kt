@@ -6,10 +6,10 @@ import androidx.paging.DataSource
 import com.alhudaghifari.moviegood.api.MovieService
 import com.alhudaghifari.moviegood.data.local.MovieLocalDataSource
 import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
-import com.alhudaghifari.moviegood.data.remote.source.MovieRemoteDataSource
 import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
+import com.alhudaghifari.moviegood.data.remote.source.MovieRemoteDataSource
 import com.alhudaghifari.moviegood.utils.AppExecutors
 import com.alhudaghifari.moviegood.utils.DummyGenerator
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
@@ -17,9 +17,12 @@ import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
