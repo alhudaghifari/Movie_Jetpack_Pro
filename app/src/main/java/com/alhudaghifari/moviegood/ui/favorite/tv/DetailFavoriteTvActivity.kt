@@ -1,18 +1,23 @@
-package com.alhudaghifari.moviegood.ui.detailtv
+package com.alhudaghifari.moviegood.ui.favorite.tv
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
-import com.alhudaghifari.moviegood.data.remote.model.TvItem
-import com.alhudaghifari.moviegood.databinding.ActivityDetailTvBinding
-import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
+import com.alhudaghifari.moviegood.databinding.*
+import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieViewModel
+import com.alhudaghifari.moviegood.ui.detailtv.DetailTvActivity
+import com.alhudaghifari.moviegood.ui.detailtv.DetailTvAdapter
+import com.alhudaghifari.moviegood.ui.detailtv.DetailTvCallback
+import com.alhudaghifari.moviegood.ui.detailtv.DetailTvViewModel
+import com.alhudaghifari.moviegood.ui.favorite.movies.DetailFavoriteMoviesActivity
 import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.vo.Status
 import com.bumptech.glide.Glide
@@ -21,28 +26,25 @@ import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
+class DetailFavoriteTvActivity : AppCompatActivity(), DetailTvCallback {
 
     companion object {
         const val TV_DATA = "tv_data"
     }
 
-    private lateinit var binding : ContentDetailBinding
+    private lateinit var binding : ContentDetailFavoriteBinding
     private val viewModel : DetailTvViewModel by viewModels()
-    private lateinit var tvAdapter : DetailTvAdapter
     private lateinit var tvEntity: TvEntity
     private var isFav = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bindingActivity = ActivityDetailTvBinding.inflate(layoutInflater)
+        val bindingActivity = ActivityDetailFavoriteTvBinding.inflate(layoutInflater)
         binding = bindingActivity.detailContent
         setContentView(bindingActivity.root)
 
         setSupportActionBar(bindingActivity.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        tvAdapter = DetailTvAdapter(this)
 
         val extras = intent.extras
         if (extras != null) {
@@ -50,18 +52,8 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
             if (tvData != null) {
                 tvEntity = tvData
                 observeTvData(tvData.tvId)
-                observeRecomData(tvData.tvId.toInt())
                 populateTv(tvData)
             }
-        }
-
-        setFavoriteButtonListener()
-
-        with(binding.rvRecommendation) {
-            isNestedScrollingEnabled = false
-            layoutManager = LinearLayoutManager(this@DetailTvActivity, RecyclerView.HORIZONTAL, false)
-            setHasFixedSize(true)
-            this.adapter = tvAdapter
         }
     }
 
@@ -114,28 +106,6 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
         })
     }
 
-    private fun observeRecomData(id: Int) {
-        EspressoIdlingResource.increment()
-        viewModel.getRecommendationTv(id).observe(this, {
-            it.let {
-                when (it.status) {
-                    Status.LOADING -> showRecLoading()
-                    Status.SUCCESS -> {
-                        showRecAndHideLoading()
-                        hideNoDataRecommendationText()
-                        tvAdapter.setRecommendationData(it.data)
-                        EspressoIdlingResource.decrement()
-                    }
-                    Status.ERROR -> {
-                        showRecAndHideLoading()
-                        showNoDataRecommendationText()
-                        EspressoIdlingResource.decrement()
-                    }
-                }
-            }
-        })
-    }
-
     private fun populateTv(data : TvEntity) {
         with(binding) {
             val percentScore = data.score.times(10) ?: 0
@@ -146,7 +116,7 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
             tvReleased.text = data.released
             tvScore.text = score
             tvOverview.text = data.overview
-            Glide.with(this@DetailTvActivity)
+            Glide.with(this@DetailFavoriteTvActivity)
                 .load(imgPath)
                 .transform(RoundedCorners(20))
                 .apply(
@@ -174,27 +144,5 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
             tvTagline.visibility = View.VISIBLE
             tvTaglineTitle.visibility = View.VISIBLE
         }
-    }
-
-    private fun showRecLoading() {
-        with(binding) {
-            progressBarRecommendation.visibility = View.VISIBLE
-            rvRecommendation.visibility = View.GONE
-        }
-    }
-
-    private fun showRecAndHideLoading() {
-        with(binding) {
-            progressBarRecommendation.visibility = View.GONE
-            rvRecommendation.visibility = View.VISIBLE
-        }
-    }
-
-    private fun showNoDataRecommendationText() {
-        binding.tvNoRecommendation.visibility = View.VISIBLE
-    }
-
-    private fun hideNoDataRecommendationText() {
-        binding.tvNoRecommendation.visibility = View.GONE
     }
 }

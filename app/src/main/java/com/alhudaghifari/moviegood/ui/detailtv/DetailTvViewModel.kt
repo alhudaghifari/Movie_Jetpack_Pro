@@ -3,6 +3,7 @@ package com.alhudaghifari.moviegood.ui.detailtv
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.alhudaghifari.moviegood.data.TvRepository
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
@@ -17,4 +18,6 @@ class DetailTvViewModel @Inject constructor(private val repository: TvRepository
     fun getDetailTv(idTv: String) : LiveData<Resource<TvEntity>> = repository.getDetailTv(idTv)
 
     fun getRecommendationTv(currentIdTv: Int) : LiveData<Resource<List<TvItem>>> = repository.getPopularTv(currentIdTv)
+
+    fun setFavorite(tv: TvEntity, isFavorite: Boolean) = repository.setFavoriteTv(tv, isFavorite)
 }

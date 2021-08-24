@@ -181,7 +181,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
 
     private fun populateMovie(data : MovieEntity) {
         with(binding) {
-            val percentScore = data.score?.times(10) ?: 0
+            val percentScore = data.score.times(10) ?: 0
             val score = "${getString(R.string.score)} : ${percentScore.toInt()}%"
             val imgPath = "${ApiConstant.base_url_img}${data.imagePath}"
 

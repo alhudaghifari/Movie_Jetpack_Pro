@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
+import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.ItemRecommendationBinding
 import com.bumptech.glide.Glide
@@ -45,7 +47,11 @@ class DetailTvAdapter (private val callback: DetailTvCallback) :
                 tvTitle.text = tv.name
                 tvReleased.text = tv.firstAirDate
                 itemView.setOnClickListener {
-                    callback.onClicked(tv)
+                    val tvEntity =  TvEntity(tv.id.toString(), tv.name ?: "", tv.firstAirDate ?: "",
+                        "", tv.voteAverage ?: 0.0,tv.overview ?: "",
+                        tv.posterPath ?: "","tagline_",
+                    )
+                    callback.onClicked(tvEntity)
                 }
                 Glide.with(itemView.context)
                     .load(imgPath)
