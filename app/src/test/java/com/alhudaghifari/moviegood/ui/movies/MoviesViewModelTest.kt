@@ -3,8 +3,12 @@ package com.alhudaghifari.moviegood.ui.movies
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.alhudaghifari.moviegood.data.MovieRepository
+import com.alhudaghifari.moviegood.data.PagedListUtil
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
+import com.alhudaghifari.moviegood.utils.DummyGenerator
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
@@ -23,8 +27,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class MoviesViewModelTest {
 
     private lateinit var viewModel: MoviesViewModel
-    private val contentMovie = MockResponseFileReader("movie_asset.json").content
-    private lateinit var dummyMovie: MovieResponse
+    private val dummyMovie = DummyGenerator.generateDummyMovies()
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -33,29 +36,31 @@ class MoviesViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<MovieResponse>>
+    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var moviePagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
-        val gson = Gson()
-        dummyMovie = gson.fromJson(contentMovie, MovieResponse::class.java)
         viewModel = MoviesViewModel(repository)
     }
 
     @Test
     fun `Test getNowPlaying view model and repository`() {
-//        val movie = MutableLiveData<Resource<MovieResponse>>()
-//        val res = Resource.success(dummyMovie)
-//        movie.value = res
-//
-//        `when`(repository.getNowPlaying()).thenReturn(movie)
-//        val movieData = viewModel.getNowPlaying().value
-//        verify(repository).getNowPlaying()
-//
-//        viewModel.getNowPlaying().observeForever(observer)
-//        verify(observer).onChanged(res)
-//
-//        assertNotNull(movieData)
-//        assertEquals(dummyMovie.results?.size ?: -1, movieData?.data?.results?.size ?: 0)
+        val movie = MutableLiveData<Resource<PagedList<MovieEntity>>>()
+        val res = Resource.success(moviePagedList)
+        `when`(res.data?.size).thenReturn(dummyMovie.size)
+        movie.value = res
+
+        `when`(repository.getNowPlaying()).thenReturn(movie)
+        val movieData = viewModel.getNowPlaying().value
+        verify(repository).getNowPlaying()
+
+        viewModel.getNowPlaying().observeForever(observer)
+        verify(observer).onChanged(res)
+
+        assertNotNull(movieData)
+        assertEquals(dummyMovie.size, movieData?.data?.size)
     }
 }

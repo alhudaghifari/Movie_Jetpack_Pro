@@ -4,9 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.alhudaghifari.moviegood.data.TvRepository
+import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.data.remote.model.TvResponse
+import com.alhudaghifari.moviegood.utils.DummyGenerator
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
@@ -42,7 +44,7 @@ class DetailTvViewModelTest {
     private lateinit var observerTv: Observer<Resource<List<TvItem>>>
 
     @Mock
-    private lateinit var observerDetailTv: Observer<Resource<TvDetailResponse>>
+    private lateinit var observerDetailTv: Observer<Resource<TvEntity>>
 
     @Before
     fun setUp() {
@@ -74,22 +76,25 @@ class DetailTvViewModelTest {
 
     @Test
     fun `Tes getDetailTv view model and repository`() {
-//        val movie = MutableLiveData<Resource<TvDetailResponse>>()
-//        val res = Resource.success(dummyDetailTv)
-//        movie.value = res
-//
-//        Mockito.`when`(repository.getDetailTv(dummyIdTv.toString())).thenReturn(movie)
-//        val movieData = viewModel.getDetailTv(dummyIdTv.toString()).value
-//        verify(repository).getDetailTv(dummyIdTv.toString())
-//        verify(repository, Mockito.never()).getOnTheAir()
-//
-//        viewModel.getDetailTv(dummyIdTv.toString()).observeForever(observerDetailTv)
-//        verify(observerDetailTv).onChanged(res)
-//
-//        assertNotNull(movieData)
-//
-//        assertEquals(movieData?.data?.name, dummyDetailTv.name)
-//        assertEquals(movieData?.data?.genres?.size, dummyDetailTv.genres?.size ?: 1)
-//        assertEquals(movieData?.data?.tagline, dummyDetailTv.tagline)
+        val movie = MutableLiveData<Resource<TvEntity>>()
+        val dummyMovieList = DummyGenerator.generateDummyTvShows()
+        val dummyMovie = dummyMovieList[0]
+
+        val res = Resource.success(dummyMovie)
+        movie.value = res
+
+        Mockito.`when`(repository.getDetailTv(dummyIdTv.toString())).thenReturn(movie)
+        val movieData = viewModel.getDetailTv(dummyIdTv.toString()).value
+        verify(repository).getDetailTv(dummyIdTv.toString())
+        verify(repository, Mockito.never()).getOnTheAir()
+
+        viewModel.getDetailTv(dummyIdTv.toString()).observeForever(observerDetailTv)
+        verify(observerDetailTv).onChanged(res)
+
+        assertNotNull(movieData)
+
+        assertEquals(movieData?.data?.title, dummyMovie.title)
+        assertEquals(movieData?.data?.category, dummyMovie.category)
+        assertEquals(movieData?.data?.tagline, dummyMovie.tagline)
     }
 }

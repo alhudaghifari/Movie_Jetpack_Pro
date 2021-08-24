@@ -4,9 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.alhudaghifari.moviegood.data.MovieRepository
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
+import com.alhudaghifari.moviegood.utils.DummyGenerator
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
@@ -43,7 +45,7 @@ class DetailMovieViewModelTest {
     private lateinit var observerMovie: Observer<Resource<List<MovieItem>>>
 
     @Mock
-    private lateinit var observerDetailMovie: Observer<Resource<MovieDetailResponse>>
+    private lateinit var observerDetailMovie: Observer<Resource<MovieEntity>>
 
     @Before
     fun setUp() {
@@ -75,22 +77,25 @@ class DetailMovieViewModelTest {
 
     @Test
     fun `Test getDetailMovie view model and repository`() {
-//        val movie = MutableLiveData<Resource<MovieDetailResponse>>()
-//        val res = Resource.success(dummyDetailMovie)
-//        movie.value = res
-//
-//        `when`(repository.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
-//        val movieData = viewModel.getDetailMovie(dummyIdMovie.toString()).value
-//        verify(repository).getDetailMovie(dummyIdMovie.toString())
-//        verify(repository, never()).getPopularMovies(dummyIdMovie)
-//
-//        viewModel.getDetailMovie(dummyIdMovie.toString()).observeForever(observerDetailMovie)
-//        verify(observerDetailMovie).onChanged(res)
-//
-//        assertNotNull(movieData)
-//
-//        assertEquals(movieData?.data?.title, dummyDetailMovie.title)
-//        assertEquals(movieData?.data?.genres?.size, dummyDetailMovie.genres?.size ?: 1)
-//        assertEquals(movieData?.data?.tagline, dummyDetailMovie.tagline)
+        val movie = MutableLiveData<Resource<MovieEntity>>()
+        val dummyMovieList = DummyGenerator.generateDummyMovies()
+        val dummyMovie = dummyMovieList[0]
+
+        val res = Resource.success(dummyMovie)
+        movie.value = res
+
+        `when`(repository.getDetailMovie(dummyIdMovie.toString())).thenReturn(movie)
+        val movieData = viewModel.getDetailMovie(dummyIdMovie.toString()).value
+        verify(repository).getDetailMovie(dummyIdMovie.toString())
+        verify(repository, never()).getPopularMovies(dummyIdMovie)
+
+        viewModel.getDetailMovie(dummyIdMovie.toString()).observeForever(observerDetailMovie)
+        verify(observerDetailMovie).onChanged(res)
+
+        assertNotNull(movieData)
+
+        assertEquals(movieData?.data?.title, dummyMovie.title)
+        assertEquals(movieData?.data?.category, dummyMovie.category)
+        assertEquals(movieData?.data?.tagline, dummyMovie.tagline)
     }
 }
