@@ -12,7 +12,6 @@ import com.alhudaghifari.moviegood.api.ApiConstant
 import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.databinding.ActivityDetailMovieBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
-import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.vo.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -78,7 +77,6 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
     }
 
     private fun observeMovieData(id: String) {
-        EspressoIdlingResource.increment()
         viewModel.getDetailMovie(id).observe(this, {
             if (it != null) {
                 when (it.status) {
@@ -102,34 +100,28 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
                                 }
                             }
                         }
-                        EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
                         showDetailAndHideLoading()
-                        EspressoIdlingResource.decrement()
                     }
                 }
-
             }
         })
     }
 
     private fun observeRecommendationData(id: Int) {
-        EspressoIdlingResource.increment()
         viewModel.getRecommendationMovie(id).observe(this, {
-            it.let {
+            it?.let {
                 when (it.status) {
                     Status.LOADING -> showRecLoading()
                     Status.SUCCESS -> {
                         showRecAndHideLoading()
                         hideNoDataRecommendationText()
                         movieAdapter.setRecommendationData(it.data)
-                        EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
                         showRecAndHideLoading()
                         showNoDataRecommendationText()
-                        EspressoIdlingResource.decrement()
                     }
                 }
             }

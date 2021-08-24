@@ -12,7 +12,6 @@ import com.alhudaghifari.moviegood.databinding.*
 import com.alhudaghifari.moviegood.ui.detailtv.DetailTvActivity
 import com.alhudaghifari.moviegood.ui.detailtv.DetailTvCallback
 import com.alhudaghifari.moviegood.ui.detailtv.DetailTvViewModel
-import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.vo.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -66,7 +65,6 @@ class DetailFavoriteTvActivity : AppCompatActivity(), DetailTvCallback {
     }
 
     private fun observeTvData(id: String) {
-        EspressoIdlingResource.increment()
         viewModel.getDetailTv(id).observe(this, {
             it?.let {
                 when (it.status) {
@@ -90,10 +88,8 @@ class DetailFavoriteTvActivity : AppCompatActivity(), DetailTvCallback {
                                 }
                             }
                         }
-                        EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
-                        EspressoIdlingResource.decrement()
                         showDetailAndHideLoading()
                     }
                 }

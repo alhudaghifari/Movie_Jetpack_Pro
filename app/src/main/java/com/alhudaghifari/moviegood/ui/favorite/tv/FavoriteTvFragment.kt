@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.databinding.FragmentFavoriteTvBinding
-import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,15 +40,12 @@ class FavoriteTvFragment : Fragment() {
     }
 
     private fun observeData() {
-        EspressoIdlingResource.increment()
         viewModel.getFavoriteTv().observe(viewLifecycleOwner, {
             if (it != null) {
                 showDataList()
                 tvAdapter.submitList(it)
-                EspressoIdlingResource.decrement()
             } else {
                 showNoData()
-                EspressoIdlingResource.decrement()
             }
         })
     }

@@ -20,8 +20,6 @@ class MovieLocalDataSource @Inject constructor(private val dao: AppDao){
 
     fun getDetailMovieById(id: String) = dao.getDetailMovieById(id)
 
-    fun updateMovie(movie: MovieEntity) = dao.updateMovie(movie)
-
     fun setFavoriteMovie(movie: MovieEntity, state: Boolean) {
         movie.isFavorite = state
         dao.updateMovie(movie)

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.databinding.FragmentMoviesBinding
-import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.vo.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +37,6 @@ class MoviesFragment : Fragment() {
     }
 
     private fun observeData() {
-        EspressoIdlingResource.increment()
         viewModel.getNowPlaying().observe(viewLifecycleOwner, {
             if (it != null) {
                 when(it.status) {
@@ -50,13 +48,11 @@ class MoviesFragment : Fragment() {
                         it.data?.let {
                             showDataList()
                             moviesAdapter.submitList(it)
-                            EspressoIdlingResource.decrement()
                         }
                     }
                     Status.ERROR -> {
                         hideLoading()
                         showNoData()
-                        EspressoIdlingResource.decrement()
                     }
                 }
             }

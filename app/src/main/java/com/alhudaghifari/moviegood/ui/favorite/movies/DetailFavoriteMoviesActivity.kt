@@ -67,7 +67,6 @@ class DetailFavoriteMoviesActivity : AppCompatActivity(), DetailMovieCallback {
     }
 
     private fun observeMovieData(id: String) {
-        EspressoIdlingResource.increment()
         viewModel.getDetailMovie(id).observe(this, {
             if (it != null) {
                 when (it.status) {
@@ -91,11 +90,9 @@ class DetailFavoriteMoviesActivity : AppCompatActivity(), DetailMovieCallback {
                                 }
                             }
                         }
-                        EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
                         showDetailAndHideLoading()
-                        EspressoIdlingResource.decrement()
                     }
                 }
 

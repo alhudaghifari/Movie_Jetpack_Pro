@@ -20,8 +20,6 @@ class TvLocalDataSource @Inject constructor(private val dao: AppDao){
 
     fun insertATv(tv: TvEntity) = dao.insertATv(tv)
 
-    fun updateTv(tv: TvEntity) = dao.updateTv(tv)
-
     fun setFavoriteTv(tv: TvEntity, isFavorite: Boolean) {
         tv.isFavorite = isFavorite
         dao.updateTv(tv)

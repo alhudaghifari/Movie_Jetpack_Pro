@@ -7,6 +7,7 @@ import com.alhudaghifari.moviegood.data.remote.ApiResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.data.remote.model.TvResponse
+import com.alhudaghifari.moviegood.utils.EspressoIdlingResource
 import com.alhudaghifari.moviegood.vo.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +20,7 @@ class TvRemoteDataSource @Inject constructor(
 ) {
     fun getOnTheAir(): LiveData<ApiResponse<List<TvItem>>> {
         val data = MutableLiveData<ApiResponse<List<TvItem>>>()
-
+        EspressoIdlingResource.increment()
         service.getOnTheAir().enqueue(object : Callback<TvResponse> {
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
                 if (response.isSuccessful) {
@@ -36,10 +37,12 @@ class TvRemoteDataSource @Inject constructor(
                 } else {
                     data.postValue(ApiResponse.error(response.message() ?: "Error Happen c", mutableListOf()))
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<TvResponse>, t: Throwable) {
                 data.postValue(ApiResponse.error(t.message.toString(), mutableListOf()))
+                EspressoIdlingResource.decrement()
             }
         })
         return data
@@ -47,6 +50,7 @@ class TvRemoteDataSource @Inject constructor(
 
     fun getPopularTv(currentIdMovie: Int): LiveData<Resource<List<TvItem>>> {
         val dataLive = MutableLiveData<Resource<List<TvItem>>>()
+        EspressoIdlingResource.increment()
         dataLive.postValue(Resource.loading(null))
         service.getPopular().enqueue(object : Callback<TvResponse> {
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
@@ -71,10 +75,12 @@ class TvRemoteDataSource @Inject constructor(
                 } else {
                     dataLive.postValue(Resource.error(response.message() ?: "Error happen",null))
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<TvResponse>, t: Throwable) {
                 dataLive.postValue(Resource.error(t.message.toString(),null))
+                EspressoIdlingResource.decrement()
             }
 
         })
@@ -83,7 +89,7 @@ class TvRemoteDataSource @Inject constructor(
 
     fun getDetailTv(idTv: String): LiveData<ApiResponse<TvDetailResponse>> {
         val data = MutableLiveData<ApiResponse<TvDetailResponse>>()
-
+        EspressoIdlingResource.increment()
         service.getDetailTv(idTv).enqueue(object : Callback<TvDetailResponse> {
             override fun onResponse(call: Call<TvDetailResponse>, response: Response<TvDetailResponse>) {
                 if (response.isSuccessful) {
@@ -96,10 +102,12 @@ class TvRemoteDataSource @Inject constructor(
                 } else {
                     data.postValue(ApiResponse.error(response.message() ?: "Error Happen b", TvDetailResponse()))
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<TvDetailResponse>, t: Throwable) {
                 data.postValue(ApiResponse.error(t.message.toString(), TvDetailResponse()))
+                EspressoIdlingResource.decrement()
             }
         })
         return data
