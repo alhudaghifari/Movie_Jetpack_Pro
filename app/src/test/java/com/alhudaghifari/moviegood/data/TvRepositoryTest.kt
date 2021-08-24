@@ -6,7 +6,7 @@ import com.alhudaghifari.moviegood.api.TvService
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.data.remote.model.TvResponse
-import com.alhudaghifari.moviegood.data.remote.source.TvDataSource
+import com.alhudaghifari.moviegood.data.remote.source.TvRemoteDataSource
 import com.alhudaghifari.moviegood.utils.MockResponseFileReader
 import com.alhudaghifari.moviegood.vo.Resource
 import com.google.gson.Gson
@@ -45,7 +45,7 @@ class TvRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val remote = mock(TvDataSource::class.java)
+    private val remote = mock(TvRemoteDataSource::class.java)
     private val repository = TvRepository(remote)
 
     @Before

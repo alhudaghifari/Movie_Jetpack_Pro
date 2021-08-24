@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
+import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailTvBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
@@ -43,10 +44,10 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
 
         val extras = intent.extras
         if (extras != null) {
-            val tvData = extras.getParcelable<TvItem>(TV_DATA)
+            val tvData = extras.getParcelable<TvEntity>(TV_DATA)
             if (tvData != null) {
-                observeTvData(tvData.id.toString())
-                observeRecomData(tvData.id ?: 0)
+                observeTvData(tvData.tvId)
+                observeRecomData(tvData.tvId.toInt())
                 populateTv(tvData)
             }
         }
@@ -70,21 +71,12 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
         EspressoIdlingResource.increment()
         viewModel.getDetailTv(id).observe(this, {
             it?.let {
-                var category = "-"
                 when (it.status) {
                     Status.LOADING -> showDetailLoading()
                     Status.SUCCESS -> {
                         showDetailAndHideLoading()
-                        it.data?.genres?.let {
-                            val genreSize = it.size
-                            for (i in 0..genreSize-1) {
-                                if (i == 0) {
-                                    category = it[i]?.name ?: ""
-                                } else {
-                                    category += ", ${it[i]?.name ?: ""}"
-                                }
-                            }
-                            binding.tvCategory.text = category
+                        it.data?.category.let {
+                            binding.tvCategory.text = it
                         }
                         it.data?.tagline.let { tagline ->
                             binding.tvTagline.text = tagline ?: "-"
@@ -93,7 +85,7 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
                     }
                     Status.ERROR -> {
                         EspressoIdlingResource.decrement()
-                        hideDetail()
+                        showDetailAndHideLoading()
                     }
                 }
             }
@@ -122,15 +114,14 @@ class DetailTvActivity : AppCompatActivity(), DetailTvCallback {
         })
     }
 
-    private fun populateTv(data : TvItem) {
+    private fun populateTv(data : TvEntity) {
         with(binding) {
-            val percentScore = data.voteAverage?.times(10) ?: 0
+            val percentScore = data.score.times(10) ?: 0
             val score = "${getString(R.string.score)} : ${percentScore.toInt()}%"
-            val imgPath = "${ApiConstant.base_url_img}${data.posterPath}"
+            val imgPath = "${ApiConstant.base_url_img}${data.imagePath}"
 
-
-            tvTitleMovie.text = data.name
-            tvReleased.text = data.firstAirDate
+            tvTitleMovie.text = data.title
+            tvReleased.text = data.released
             tvScore.text = score
             tvOverview.text = data.overview
             Glide.with(this@DetailTvActivity)

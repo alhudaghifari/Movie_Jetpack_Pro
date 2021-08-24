@@ -6,7 +6,9 @@ import androidx.annotation.StringRes
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.databinding.ActivityFavoriteBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteActivity : AppCompatActivity() {
 
     private val TAB_TITLES_FAVORITE = intArrayOf(R.string.movies,

@@ -3,7 +3,7 @@ package com.alhudaghifari.moviegood.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.MovieService
-import com.alhudaghifari.moviegood.data.remote.source.MovieDataSource
+import com.alhudaghifari.moviegood.data.remote.source.MovieRemoteDataSource
 import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.data.remote.model.MovieResponse
@@ -39,7 +39,7 @@ class MovieRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val remote = mock(MovieDataSource::class.java)
+    private val remote = mock(MovieRemoteDataSource::class.java)
     private val repository = MovieRepository(remote)
 
     @Before

@@ -1,7 +1,7 @@
 package com.alhudaghifari.moviegood.ui.tvshows
 
-import com.alhudaghifari.moviegood.data.remote.model.TvItem
+import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 
 interface TvShowCallback {
-    fun onShareClicked(tv: TvItem)
+    fun onShareClicked(tv: TvEntity)
 }

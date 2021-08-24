@@ -3,24 +3,30 @@ package com.alhudaghifari.moviegood.ui.movies
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.databinding.ItemMoviesBinding
 import com.alhudaghifari.moviegood.ui.detailmovie.DetailMovieActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(){
+class MoviesAdapter : PagedListAdapter<MovieEntity, MoviesAdapter.MoviesViewHolder>(DIFF_CALLBACK) {
 
-    private var listMovies = ArrayList<MovieItem>()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
+            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem.movieId == newItem.movieId
+            }
 
-    fun setMovies(movies: List<MovieItem>?) {
-        if (movies == null)
-            return
-        this.listMovies.clear()
-        this.listMovies.addAll(movies)
+            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -29,21 +35,21 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        val movie = listMovies[position]
-        holder.bind(movie)
+        val muv = getItem(position)
+        if (muv != null) {
+            holder.bind(muv)
+        }
     }
 
-    override fun getItemCount(): Int = listMovies.size
-
     class MoviesViewHolder(private val binding : ItemMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieItem) {
+        fun bind(movie: MovieEntity) {
             with(binding) {
-                val percentScore = movie.voteAverage?.times(10) ?: 0
+                val percentScore = movie.score.times(10) ?: 0
                 val score = "${itemView.context.getString(R.string.score)} : ${percentScore.toInt()}%"
-                val imgPath = "${ApiConstant.base_url_img}${movie.posterPath}"
+                val imgPath = "${ApiConstant.base_url_img}${movie.imagePath}"
 
                 tvItemTitle.text = movie.title
-                tvItemReleased.text = movie.releaseDate
+                tvItemReleased.text = movie.released
                 tvScore.text = score
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailMovieActivity::class.java)

@@ -3,6 +3,8 @@ package com.alhudaghifari.moviegood.data.remote.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alhudaghifari.moviegood.api.TvService
+import com.alhudaghifari.moviegood.data.remote.ApiResponse
+import com.alhudaghifari.moviegood.data.remote.model.MovieDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvDetailResponse
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.data.remote.model.TvResponse
@@ -13,26 +15,33 @@ import retrofit2.Response
 import javax.inject.Inject
 import kotlin.random.Random
 
-class TvDataSource @Inject constructor(
+class TvRemoteDataSource @Inject constructor(
     private val service: TvService
 ) {
-    fun getOnTheAir(): LiveData<Resource<TvResponse>> {
-        val data = MutableLiveData<Resource<TvResponse>>()
-        data.postValue(Resource.loading(null))
+    fun getOnTheAir(): LiveData<ApiResponse<List<TvItem>>> {
+        val data = MutableLiveData<ApiResponse<List<TvItem>>>()
 
         service.getOnTheAir().enqueue(object : Callback<TvResponse> {
             override fun onResponse(call: Call<TvResponse>, response: Response<TvResponse>) {
                 if (response.isSuccessful) {
-                    data.postValue(Resource.success(response.body()))
+                    val result = response.body()
+                    if (result != null) {
+                        val listMovie = result.tvItems
+                        if (listMovie != null)
+                            data.postValue(ApiResponse.success(listMovie))
+                        else
+                            data.postValue(ApiResponse.empty(response.message() ?: "Error Happen a", mutableListOf()))
+                    } else {
+                        data.postValue(ApiResponse.empty(response.message() ?: "Error Happen b", mutableListOf()))
+                    }
                 } else {
-                    data.postValue(Resource.error(response.message() ?: "Error happen",null))
+                    data.postValue(ApiResponse.error(response.message() ?: "Error Happen c", mutableListOf()))
                 }
             }
 
             override fun onFailure(call: Call<TvResponse>, t: Throwable) {
-                data.postValue(Resource.error(t.message.toString(),null))
+                data.postValue(ApiResponse.error(t.message.toString(), mutableListOf()))
             }
-
         })
         return data
     }
@@ -73,22 +82,26 @@ class TvDataSource @Inject constructor(
         return dataLive
     }
 
-    fun getDetailTv(idTv: String): LiveData<Resource<TvDetailResponse>> {
-        val data = MutableLiveData<Resource<TvDetailResponse>>()
-        data.postValue(Resource.loading(null))
+    fun getDetailTv(idTv: String): LiveData<ApiResponse<TvDetailResponse>> {
+        val data = MutableLiveData<ApiResponse<TvDetailResponse>>()
+
         service.getDetailTv(idTv).enqueue(object : Callback<TvDetailResponse> {
             override fun onResponse(call: Call<TvDetailResponse>, response: Response<TvDetailResponse>) {
                 if (response.isSuccessful) {
-                    data.postValue(Resource.success(response.body()))
+                    val result = response.body()
+                    if (result != null) {
+                        data.postValue(ApiResponse.success(result))
+                    } else {
+                        data.postValue(ApiResponse.empty(response.message() ?: "Error Happen a", TvDetailResponse()))
+                    }
                 } else {
-                    data.postValue(Resource.error(response.message() ?: "Error happen",null))
+                    data.postValue(ApiResponse.error(response.message() ?: "Error Happen b", TvDetailResponse()))
                 }
             }
 
             override fun onFailure(call: Call<TvDetailResponse>, t: Throwable) {
-                data.postValue(Resource.error(t.message.toString(),null))
+                data.postValue(ApiResponse.error(t.message.toString(), TvDetailResponse()))
             }
-
         })
         return data
     }

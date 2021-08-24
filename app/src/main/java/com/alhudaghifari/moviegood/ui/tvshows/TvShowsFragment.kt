@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alhudaghifari.moviegood.R
+import com.alhudaghifari.moviegood.data.local.entity.TvEntity
 import com.alhudaghifari.moviegood.data.remote.model.TvItem
 import com.alhudaghifari.moviegood.databinding.FragmentTvShowsBinding
 import com.alhudaghifari.moviegood.vo.Status
@@ -46,7 +47,7 @@ class TvShowsFragment : Fragment(), TvShowCallback {
                         it.data?.let {
                             showDataList()
                             val adapter = TvShowsAdapter(this)
-                            adapter.setMovie(it.tvItems)
+                            adapter.submitList(it)
                             with(fragmentTvShowsBinding.rvTvShows) {
                                 layoutManager = LinearLayoutManager(context)
                                 setHasFixedSize(true)
@@ -63,17 +64,16 @@ class TvShowsFragment : Fragment(), TvShowCallback {
         })
     }
 
-    override fun onShareClicked(tv: TvItem) {
+    override fun onShareClicked(tv: TvEntity) {
         if (activity != null) {
             val mimeType = "text/plain"
             ShareCompat.IntentBuilder(requireActivity())
                 .setType(mimeType)
                 .setChooserTitle("Bagikan aplikasi ini sekarang.")
-                .setText(resources.getString(R.string.share_text, tv.name))
+                .setText(resources.getString(R.string.share_text, tv.title))
                 .startChooser()
         }
     }
-
 
     private fun showLoading() {
         fragmentTvShowsBinding.progressBar.visibility = View.VISIBLE

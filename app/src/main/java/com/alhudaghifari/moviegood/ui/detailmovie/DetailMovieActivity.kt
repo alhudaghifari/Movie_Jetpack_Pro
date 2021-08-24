@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.databinding.ActivityDetailMovieBinding
 import com.alhudaghifari.moviegood.databinding.ContentDetailBinding
@@ -43,10 +44,10 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
 
         val extras = intent.extras
         if (extras != null) {
-            val movieData = extras.getParcelable<MovieItem>(MOVIE_DATA)
+            val movieData = extras.getParcelable<MovieEntity>(MOVIE_DATA)
             if (movieData != null) {
-                observeMovieData(movieData.id.toString())
-                observeRecommendationData(movieData.id ?: 0)
+                observeMovieData(movieData.movieId)
+                observeRecommendationData(movieData.movieId.toInt())
                 populateMovie(movieData)
             }
         }
@@ -70,21 +71,12 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
         EspressoIdlingResource.increment()
         viewModel.getDetailMovie(id).observe(this, {
             if (it != null) {
-                var category = "-"
                 when (it.status) {
                     Status.LOADING -> showDetailLoading()
                     Status.SUCCESS -> {
                         showDetailAndHideLoading()
-                        it.data?.genres?.let {
-                            val genreSize = it.size
-                            for (i in 0..genreSize-1) {
-                                if (i == 0) {
-                                    category = it[i]?.name ?: ""
-                                } else {
-                                    category += ", ${it[i]?.name ?: ""}"
-                                }
-                            }
-                            binding.tvCategory.text = category
+                        it.data?.category?.let {
+                            binding.tvCategory.text = it
                         }
                         it.data?.tagline.let { tagline ->
                             binding.tvTagline.text = tagline ?: "-"
@@ -92,7 +84,7 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
                         EspressoIdlingResource.decrement()
                     }
                     Status.ERROR -> {
-                        hideDetail()
+                        showDetailAndHideLoading()
                         EspressoIdlingResource.decrement()
                     }
                 }
@@ -175,16 +167,24 @@ class DetailMovieActivity : AppCompatActivity(), DetailMovieCallback {
         binding.tvNoRecommendation.visibility = View.GONE
     }
 
-    private fun populateMovie(data : MovieItem) {
+    private fun populateMovie(data : MovieEntity) {
         with(binding) {
-            val percentScore = data.voteAverage?.times(10) ?: 0
+            val percentScore = data.score?.times(10) ?: 0
             val score = "${getString(R.string.score)} : ${percentScore.toInt()}%"
-            val imgPath = "${ApiConstant.base_url_img}${data.posterPath}"
+            val imgPath = "${ApiConstant.base_url_img}${data.imagePath}"
 
             tvTitleMovie.text = data.title
-            tvReleased.text = data.releaseDate
+            tvReleased.text = data.released
             tvScore.text = score
             tvOverview.text = data.overview
+
+            if (data.tagline.isNotEmpty()) {
+                tvTagline.text = data.tagline
+            }
+            if (data.category.isNotEmpty()) {
+                tvCategory.text = data.category
+            }
+
             Glide.with(this@DetailMovieActivity)
                 .load(imgPath)
                 .transform(RoundedCorners(20))

@@ -40,26 +40,21 @@ class MoviesFragment : Fragment() {
 
     private fun observeData() {
         EspressoIdlingResource.increment()
-        Log.d("MoviesFragment", "observer data ini ")
         viewModel.getNowPlaying().observe(viewLifecycleOwner, {
             if (it != null) {
                 when(it.status) {
                     Status.LOADING -> {
                         showLoading()
-                        Log.d("MoviesFragment", "observer data ini show loading ")
                     }
                     Status.SUCCESS -> {
-                        Log.d("MoviesFragment", "observer data ini success ")
                         hideLoading()
                         it.data?.let {
                             showDataList()
-                            moviesAdapter.setMovies(it.results)
+                            moviesAdapter.submitList(it)
                             EspressoIdlingResource.decrement()
                         }
-                        Log.d("MoviesFragment", "observer data ini success beres ")
                     }
                     Status.ERROR -> {
-                        Log.d("MoviesFragment", "observer data ini error ")
                         hideLoading()
                         showNoData()
                         EspressoIdlingResource.decrement()

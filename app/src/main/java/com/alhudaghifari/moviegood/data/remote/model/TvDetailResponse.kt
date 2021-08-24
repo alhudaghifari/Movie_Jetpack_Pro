@@ -37,6 +37,9 @@ data class TvDetailResponse(
     @field:SerializedName("vote_average")
 	val voteAverage: Double? = null,
 
+	@field:SerializedName("first_air_date")
+	val firstAirDate: String? = null,
+
     @field:SerializedName("name")
 	val name: String? = null,
 
