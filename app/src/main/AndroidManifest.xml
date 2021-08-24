@@ -13,10 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieGood">
         <activity
+            android:name=".ui.favorite.movies.DetailFavoriteMoviesActivity"
+            android:exported="true"
+            android:label="@string/favorite"
+            android:parentActivityName=".ui.favorite.FavoriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MovieGood.NoActionBar" />
+        <activity
             android:name=".ui.favorite.FavoriteActivity"
             android:exported="true"
+            android:label="@string/favorite"
+            android:parentActivityName=".ui.main.MainActivity"
             android:screenOrientation="portrait"
-            android:label="@string/favorite"/>
+            android:theme="@style/Theme.MovieGood.NoActionBar" />
         <activity
             android:name=".ui.detailtv.DetailTvActivity"
             android:label="@string/detail_tv"

@@ -93,12 +93,17 @@ class TvRepository @Inject constructor(
         }.asLiveData()
     }
 
-    override fun getFavoriteTv(): LiveData<Resource<PagedList<TvEntity>>> {
-        TODO("Not yet implemented")
+    override fun getFavoriteTv(): LiveData<PagedList<TvEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getFavoriteTv(), config).build()
     }
 
     override fun setFavoriteTv(tv: TvEntity, isFavorite: Boolean) {
-        TODO("Not yet implemented")
+        appExecutors.diskIO().execute { localDataSource.setFavoriteTv(tv, isFavorite) }
     }
 
 }

@@ -18,6 +18,10 @@ class FavoriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val pagerAdapter = FavoriteAdapter(this)
         binding.viewPager2.adapter = pagerAdapter
 

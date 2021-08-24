@@ -14,6 +14,6 @@ interface TvDataInterface {
     fun getOnTheAir() : LiveData<Resource<PagedList<TvEntity>>>
     fun getPopularTv(currentId: Int) : LiveData<Resource<List<TvItem>>>
     fun getDetailTv(idTv: String) : LiveData<Resource<TvEntity>>
-    fun getFavoriteTv() : LiveData<Resource<PagedList<TvEntity>>>
+    fun getFavoriteTv() : LiveData<PagedList<TvEntity>>
     fun setFavoriteTv(tv: TvEntity, isFavorite: Boolean)
 }

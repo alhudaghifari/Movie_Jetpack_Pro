@@ -17,4 +17,6 @@ class DetailMovieViewModel @Inject constructor(private val repository: MovieRepo
     fun getRecommendationMovie(currentIdMovie: Int) : LiveData<Resource<List<MovieItem>>> = repository.getPopularMovies(currentIdMovie)
 
     fun getDetailMovie(id: String) : LiveData<Resource<MovieEntity>>  = repository.getDetailMovie(id)
+
+    fun setFavorite(movie: MovieEntity, isFavorite: Boolean) = repository.setFavoriteMovies(movie, isFavorite)
 }

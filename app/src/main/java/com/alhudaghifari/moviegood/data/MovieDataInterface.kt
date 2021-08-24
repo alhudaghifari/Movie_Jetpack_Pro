@@ -12,6 +12,6 @@ interface MovieDataInterface {
     fun getNowPlaying() : LiveData<Resource<PagedList<MovieEntity>>>
     fun getPopularMovies(currentIdMovie: Int) : LiveData<Resource<List<MovieItem>>>
     fun getDetailMovie(idMovie: String) : LiveData<Resource<MovieEntity>>
-    fun getFavoriteMovies() : LiveData<Resource<PagedList<MovieEntity>>>
+    fun getFavoriteMovies() : LiveData<PagedList<MovieEntity>>
     fun setFavoriteMovies(movie: MovieEntity, isFavorite: Boolean)
 }

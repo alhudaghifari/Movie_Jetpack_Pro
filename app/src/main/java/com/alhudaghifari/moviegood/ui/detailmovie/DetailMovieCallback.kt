@@ -1,7 +1,7 @@
 package com.alhudaghifari.moviegood.ui.detailmovie
 
-import com.alhudaghifari.moviegood.data.remote.model.MovieItem
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 
 interface DetailMovieCallback {
-    fun onClicked(movie: MovieItem)
+    fun onClicked(movie: MovieEntity)
 }

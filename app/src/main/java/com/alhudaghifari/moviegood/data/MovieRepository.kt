@@ -100,12 +100,17 @@ class MovieRepository @Inject constructor(
         }.asLiveData()
     }
 
-    override fun getFavoriteMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
-        TODO("Not yet implemented")
+    override fun getFavoriteMovies(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getFavoriteMovie(), config).build()
     }
 
     override fun setFavoriteMovies(movie: MovieEntity, isFavorite: Boolean) {
-        TODO("Not yet implemented")
+        appExecutors.diskIO().execute { localDataSource.setFavoriteMovie(movie, isFavorite) }
     }
 
 }

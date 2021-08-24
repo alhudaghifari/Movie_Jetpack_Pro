@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alhudaghifari.moviegood.R
 import com.alhudaghifari.moviegood.api.ApiConstant
+import com.alhudaghifari.moviegood.data.local.entity.MovieEntity
 import com.alhudaghifari.moviegood.data.remote.model.MovieItem
 import com.alhudaghifari.moviegood.databinding.ItemRecommendationBinding
 import com.bumptech.glide.Glide
@@ -45,7 +46,11 @@ class DetailMovieAdapter(private val callback: DetailMovieCallback) :
                 tvTitle.text = movie.title
                 tvReleased.text = movie.releaseDate
                 itemView.setOnClickListener {
-                    callback.onClicked(movie)
+                    val movieEntity =  MovieEntity(movie.id.toString(), movie.title ?: "", movie.releaseDate ?: "",
+                        "", movie.voteAverage ?: 0.0,movie.overview ?: "",
+                        movie.posterPath ?: "","tagline_",
+                    )
+                    callback.onClicked(movieEntity)
                 }
                 Glide.with(itemView.context)
                     .load(imgPath)
