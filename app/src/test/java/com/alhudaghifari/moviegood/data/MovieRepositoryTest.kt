@@ -131,6 +131,18 @@ class MovieRepositoryTest {
     }
 
     @Test
+    fun getFavoriteMovies() {
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
+        `when`(local.getFavoriteMovie()).thenReturn(dataSourceFactory)
+        repository.getFavoriteMovies()
+
+        val movieEntityList = Resource.success(PagedListUtil.mockPagedList(DummyGenerator.generateDummyMovies()))
+        verify(local).getFavoriteMovie()
+        assertNotNull(movieEntityList)
+        assertEquals(dummyRemoteMovie.size, movieEntityList.data?.size)
+    }
+
+    @Test
     fun getPopularMovies() {
         val movie = MutableLiveData<Resource<List<MovieItem>>>()
         val res = Resource.success(dummyMovieItem)

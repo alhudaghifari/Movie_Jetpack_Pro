@@ -138,6 +138,18 @@ class TvRepositoryTest {
     }
 
     @Test
+    fun getFavoriteTv() {
+        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvEntity>
+        `when`(local.getFavoriteTv()).thenReturn(dataSourceFactory)
+        repository.getFavoriteTv()
+
+        val movieEntityList = Resource.success(PagedListUtil.mockPagedList(DummyGenerator.generateDummyTvShows()))
+        Mockito.verify(local).getFavoriteTv()
+        assertNotNull(movieEntityList)
+        assertEquals(dummyRemoteTv.size, movieEntityList.data?.size)
+    }
+
+    @Test
     fun getPopularTv() {
         val tv = MutableLiveData<Resource<List<TvItem>>>()
         val res = Resource.success(dummyTvItem)
